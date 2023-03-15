@@ -31,7 +31,7 @@ public class ListSE {
             head= new Node(kid);
         }
     }
-    public void addToStar(Kid kid)
+    public void addToStart(Kid kid)
     {
         if(head!=null)
         {
@@ -51,7 +51,7 @@ public class ListSE {
         {
             if(posicion==1)
             {
-                addToStar(kid);
+                addToStart(kid);
             }
             else
             {
@@ -103,7 +103,7 @@ public class ListSE {
          Node temp=head;
          while(temp!=null)
          {
-             listCp.addToStar(temp.getData());
+             listCp.addToStart(temp.getData());
              temp= temp.getNext();
          }
          head=listCp.getHead();
@@ -123,7 +123,7 @@ public class ListSE {
             }
             else
             {
-                listCp.addToStar(temp.getData());
+                listCp.addToStart(temp.getData());
                 temp=temp.getNext();
             }
             head=listCp.getHead();
