@@ -49,7 +49,7 @@ public class ListSE {
         Node temp=head;
         if(head!=null)
         {
-            if(head.getClass().equals(posicion))
+            if(posicion==1)
             {
                 addToStar(kid);
             }
@@ -66,30 +66,65 @@ public class ListSE {
 
     }
 
-    public void deleteKid(String Identification, int posicion)
+    public void deleteKid(String identification, int posicion)
     {   Node temp=head;
         if(head!=null)
         {
-            if(head.getData().equals(Identification))
+            if(head.getData().equals(identification))
             {
-                head=null;
                 head=temp.getNext();
             }
             else
             {
-                for (int i = 0; i < posicion-1; i++)
+                int pos=1;
+                while(temp != null)
                 {
                     temp = temp.getNext();
+                    pos++;
+                    if(pos == posicion-1 )
+                    {
+                        break;
+                    }
+
                 }
-                temp.setNext(temp.getNext());
+                temp.setNext(temp.getNext().getNext());
             }
         }
         else
         {
             head=null;
         }
-
     }
+    public void invertList()
+    {
+        if(head!=null)
+        {
+         ListSE listCp=new ListSE();
+         Node temp=head;
+         while(temp!=null)
+         {
+             listCp.addToStar(temp.getData());
+             temp= temp.getNext();
+         }
+         head=listCp.getHead();
+        }
+    }
+    public void addToStartNameChar(String letra)
+    {
+
+        if(head!=null)
+        {
+            ListSE listCp=new ListSE();
+            Node temp=head;
+            while(temp.getData().getName().startsWith(letra))
+            {
+                listCp.add(temp.getData());
+                temp=temp.getNext();
+            }
+            head=listCp.getHead();
+        }
+    }
+
 
 }
 

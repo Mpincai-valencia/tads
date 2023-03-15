@@ -26,20 +26,4 @@ public class ListSEService {
         return kids.getHead();
     }
 
-    public Node invertList(Node head) {
-        Node previous = null;
-        Node temp = head;
-        Node next = null;
-
-        while (temp!= null) {
-            next = temp.getNext();
-            temp.setNext(previous);
-            previous = temp;
-            temp = next;
-        }
-
-        return previous;
-    }
-
-
 }
