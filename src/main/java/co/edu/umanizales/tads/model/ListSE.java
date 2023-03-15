@@ -116,9 +116,14 @@ public class ListSE {
         {
             ListSE listCp=new ListSE();
             Node temp=head;
-            while(temp.getData().getName().startsWith(letra))
+            if(temp.getData().getName().startsWith(letra))
             {
                 listCp.add(temp.getData());
+                temp=temp.getNext();
+            }
+            else
+            {
+                listCp.addToStar(temp.getData());
                 temp=temp.getNext();
             }
             head=listCp.getHead();
