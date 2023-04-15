@@ -129,6 +129,20 @@ public class ListSE {
             head=listCp.getHead();
         }
     }
+    public void changeExtremes()
+    {
+        if(this.head!=null && this.head.getNext()!=null)
+        {
+            Node temp=this.head;
+            while(temp.getNext()!=null)
+            {
+                temp=temp.getNext();
+            }
+            Kid copy=this.head.getData();
+            this.head.setData(temp.getData());
+            temp.setData(copy);
+        }
+    }
 
 
 }

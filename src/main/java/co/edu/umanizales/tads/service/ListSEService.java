@@ -21,9 +21,8 @@ public class ListSEService {
         kids.add(new Kid("123","Mariana",(byte)18));
         kids.add(new Kid("123","Mariana",(byte)18));
     }
-    public Node getKids()
-    {
-        return kids.getHead();
-    }
+
+
+
 
 }

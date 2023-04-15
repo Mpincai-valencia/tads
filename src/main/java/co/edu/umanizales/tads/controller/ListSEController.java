@@ -17,9 +17,14 @@ public class ListSEController {
     private ListSEService listSEService;
 
     @GetMapping
-    public ResponseEntity<ResponseDTO>getKids()
+    public ResponseEntity<ResponseDTO> getKids()
     {
-        return new ResponseEntity<>(new ResponseDTO(200,listSEService.getKids(),null), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO(200,listSEService.getKids().getHead(),null), HttpStatus.OK);
     }
-
+    @GetMapping(path = "/change_extremes")
+    public ResponseEntity<ResponseDTO>changeExtremes()
+    {
+        listSEService.getKids().changeExtremes();
+        return new ResponseEntity<>(new ResponseDTO(200,"Se han intercambiado los extremos",null),HttpStatus.OK);
+    }
 }
