@@ -22,4 +22,25 @@ public class LocationService {
         locations.add(new Location("16917001","Manizales"));
         locations.add(new Location("16917003","Chinchiná"));
     }
+    public List<Location> getLocationByCodeSize(int size)
+    {
+        List<Location>listLocations= new ArrayList<>();
+        for(Location loc: locations)
+        {
+            if(loc.getCode().length()==size)
+            {
+                listLocations.add(loc);
+            }
+        }
+        return listLocations;
+    }
+    public Location getLocationByCode(String code)
+    {
+        for(Location loc:locations)
+        {
+            if(loc.getCode().equals(code))
+            {return loc;}
+        }
+        return null;
+    }
 }
