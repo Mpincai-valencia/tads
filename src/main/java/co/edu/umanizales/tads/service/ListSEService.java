@@ -17,12 +17,13 @@ public class ListSEService {
     public ListSEService()
     {
         kids=new ListSE();
-        kids.add(new Kid("123","Mariana",(byte)18));
-        kids.add(new Kid("123","Mariana",(byte)18));
-        kids.add(new Kid("123","Mariana",(byte)18));
+
     }
 
-
+    public void invert()
+    {
+        kids.invertList();
+    }
 
 
 }

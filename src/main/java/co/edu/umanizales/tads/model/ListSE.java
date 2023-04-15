@@ -144,6 +144,26 @@ public class ListSE {
         }
     }
 
+    public void orderBoysToStart(){
+        if(this.head !=null){
+            ListSE listCp = new ListSE();
+            Node temp = this.head;
+            while(temp != null){
+                if(temp.getData().getGender()=='M')
+                {
+                    listCp.addToStart(temp.getData());
+                }
+                else{
+                    listCp.add(temp.getData());
+                }
+
+                temp = temp.getNext();
+            }
+            this.head = listCp.getHead();
+        }
+    }
+
+
 
 }
 

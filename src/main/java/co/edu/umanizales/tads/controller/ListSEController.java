@@ -21,6 +21,13 @@ public class ListSEController {
     {
         return new ResponseEntity<>(new ResponseDTO(200,listSEService.getKids().getHead(),null), HttpStatus.OK);
     }
+    //No entiendo por que se llama antes del dto al service
+    @GetMapping(path="/invertlist")
+    public ResponseEntity<ResponseDTO> invertList()
+    {
+        listSEService.invert();
+        return new ResponseEntity<>(new ResponseDTO(200,"La lista se ha invertido",null ),HttpStatus.OK);
+    }
     @GetMapping(path = "/change_extremes")
     public ResponseEntity<ResponseDTO>changeExtremes()
     {
