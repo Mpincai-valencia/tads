@@ -14,14 +14,13 @@ import java.util.List;
 
 public class ListSEService {
     private ListSE kids;
-    public ListSEService()
-    {
-        kids=new ListSE();
+
+    public ListSEService() {
+        kids = new ListSE();
 
     }
 
-    public void invert()
-    {
+    public void invert() {
         kids.invertList();
     }
 
