@@ -179,6 +179,29 @@ public class ListSE {
         return count;
     }
 
+    public Kid getKidById(String code)
+    {
+        if(head!=null)
+        {
+            if(head.getData().equals(code))
+            {
+                return head.getData();
+            }
+            else {
+                Node temp = head;
+                while (temp != null) {
+                    temp = temp.getNext();
+                    if (temp.getData().equals(code)) {
+                        return temp.getData();
+                    }
+                    break;
+                }
+            }
+        }
+        return null;
+
+    }
+
 
 }
 

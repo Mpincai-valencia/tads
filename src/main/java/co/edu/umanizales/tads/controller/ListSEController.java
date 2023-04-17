@@ -1,5 +1,6 @@
 package co.edu.umanizales.tads.controller;
 import co.edu.umanizales.tads.dto.ResponseDTO;
+import co.edu.umanizales.tads.model.Kid;
 import co.edu.umanizales.tads.model.ListSE;
 import co.edu.umanizales.tads.model.Node;
 import co.edu.umanizales.tads.service.ListSEService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,4 +37,18 @@ public class ListSEController {
         return new ResponseEntity<>(new ResponseDTO(200,"Se han intercambiado los extremos",null),HttpStatus.OK);
     }
 
+    @GetMapping(path="/getkidbyid")
+    public ResponseEntity<ResponseDTO>getKidById(@RequestBody Kid kid)
+    {
+        Kid findKid=listSEService.getKids().getKidById(kid.getIdentification());
+        if (findKid==null)
+        {
+            listSEService.getKids().add(kid);
+            return new ResponseEntity<>(new ResponseDTO(200,"El niño fue agregado",null),HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(new ResponseDTO(409,"El niño ya existe",null),HttpStatus.OK);
+        }
+    }
 }
