@@ -37,8 +37,8 @@ public class ListSEController {
         return new ResponseEntity<>(new ResponseDTO(200,"Se han intercambiado los extremos",null),HttpStatus.OK);
     }
 
-    @GetMapping(path="/getkidbyid")
-    public ResponseEntity<ResponseDTO>getKidById(@RequestBody Kid kid)
+    @GetMapping(path="/createKid")
+    public ResponseEntity<ResponseDTO>createKid(@RequestBody Kid kid)
     {
         Kid findKid=listSEService.getKids().getKidById(kid.getIdentification());
         if (findKid==null)
