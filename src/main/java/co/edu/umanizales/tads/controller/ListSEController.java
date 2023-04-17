@@ -30,6 +30,20 @@ public class ListSEController {
         listSEService.invert();
         return new ResponseEntity<>(new ResponseDTO(200,"La lista se ha invertido",null ),HttpStatus.OK);
     }
+    @GetMapping(path="/addtostartnamechar")
+    public ResponseEntity<ResponseDTO>addToStartNameChar(String letra)
+    {
+        listSEService.getKids().addToStartNameChar(letra);
+        return new ResponseEntity<>(new ResponseDTO(200,"Se han agregado al inicio los nombres que inician con la letra ingresada",null),HttpStatus.OK);
+    }
+
+    @GetMapping(path="/deletekid")
+    public ResponseEntity<ResponseDTO>deleteKid(Kid kid, int posicion)
+    {
+        listSEService.getKids().deleteKid(kid.getIdentification(),posicion);
+        return new ResponseEntity<>(new ResponseDTO(200,"Se ha eliminado al niño",null),HttpStatus.OK);
+    }
+
     @GetMapping(path = "/change_extremes")
     public ResponseEntity<ResponseDTO>changeExtremes()
     {
