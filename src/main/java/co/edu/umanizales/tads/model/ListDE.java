@@ -15,5 +15,23 @@ public class ListDE {
         return headDE;
     }
 
+    public void addDE(Pet pet)
+    {
+        if(headDE!=null)
+        {
+            NodeDE temp=headDE;
+            while(temp.getNext()!=null)
+            {
+                temp.getNext();
+            }
+            NodeDE newNodeDE= new NodeDE(pet,temp.getNext(),temp.getPrevious());
+            temp.setNext(newNodeDE);
+        }
+
+    }
+
+
+
 }
+
 
