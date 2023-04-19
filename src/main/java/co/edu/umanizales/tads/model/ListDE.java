@@ -30,6 +30,22 @@ public class ListDE {
 
     }
 
+    public void addToStartDE(Pet pet)
+    {
+        if (headDE!=null)
+        {
+            NodeDE temp=headDE;
+            NodeDE newNodeDE= new NodeDE(pet,temp.getNext(),temp.getPrevious());
+            newNodeDE.setNext(headDE);
+            headDE=newNodeDE;
+        }
+        else
+        {
+            NodeDE temp=headDE;
+            headDE= new NodeDE(pet,temp.getNext(),temp.getPrevious());
+        }
+    }
+
 
 
 }
