@@ -66,5 +66,19 @@ public class LocationController {
         }
         return new ResponseEntity<>(new ResponseDTO(200, kidByLocationDTOSList,null),HttpStatus.OK);
     }
+    @GetMapping(path="/kidsbydepartment")
+    public ResponseEntity<ResponseDTO>getKidsByDepartment()
+    {
+        List<KidByLocationDTO>kidByLocationDTOList=new ArrayList<>();
+        for(Location loc:locationService.getLocations())
+        {
+            int count=listSEService.getKids().getCountKidsByLocationSize(loc.getCode().length());
+            if(count>0)
+            {
+                kidByLocationDTOList.add(new KidByLocationDTO(loc,count));
+            }
+        }
+        return new ResponseEntity<>(new ResponseDTO(200,kidByLocationDTOList,null),HttpStatus.OK);
+    }
 
 }

@@ -178,6 +178,21 @@ public class ListSE {
         }
         return count;
     }
+    public int getCountKidsByLocationSize(int size)
+    {
+        int count=0;
+        if (head!=null)
+        {
+            Node temp=head;
+            while(temp!=null)
+            {
+                if(temp.getData().getLocation().getCode().length()==size)
+                {count++;}
+            }
+            temp=temp.getNext();
+        }
+        return count;
+    }
 
     public Kid getKidById(String code)
     {
