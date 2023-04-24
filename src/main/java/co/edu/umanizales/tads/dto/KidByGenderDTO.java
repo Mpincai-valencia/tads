@@ -8,8 +8,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class KidByGenderDTO {
 
-    private KidByLocationDTO data;
-    private int quantitygenderM;
-    private int quantitygenderF;
+
+    private char gender;
+    private int quantity;
 
 }

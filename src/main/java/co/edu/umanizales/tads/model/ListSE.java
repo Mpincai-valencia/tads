@@ -1,6 +1,8 @@
 package co.edu.umanizales.tads.model;
 
+import co.edu.umanizales.tads.dto.KidByLocationAndGenderDTO;
 import lombok.*;
+import java.util.List;
 
 @Data
 @Getter
@@ -239,6 +241,7 @@ public class ListSE {
         return null;
 
     }
+
 
 
 }
