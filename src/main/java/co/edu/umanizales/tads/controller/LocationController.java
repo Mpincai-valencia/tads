@@ -1,5 +1,6 @@
 package co.edu.umanizales.tads.controller;
 
+import co.edu.umanizales.tads.dto.KidByGenderDTO;
 import co.edu.umanizales.tads.dto.KidByLocationDTO;
 import co.edu.umanizales.tads.dto.KidDTO;
 import co.edu.umanizales.tads.dto.ResponseDTO;
@@ -7,8 +8,6 @@ import co.edu.umanizales.tads.model.Kid;
 import co.edu.umanizales.tads.model.Location;
 import co.edu.umanizales.tads.service.ListSEService;
 import co.edu.umanizales.tads.service.LocationService;
-import lombok.Data;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -79,6 +78,12 @@ public class LocationController {
             }
         }
         return new ResponseEntity<>(new ResponseDTO(200,kidByLocationDTOList,null),HttpStatus.OK);
+    }
+    @GetMapping(path="/kidsbyageandgender")
+    public ResponseEntity<ResponseDTO>getCountKidsByAgeAndGender(byte age)
+    {
+        List<KidByGenderDTO> kidByGenderDTOList =new ArrayList<>();
+
     }
 
 }

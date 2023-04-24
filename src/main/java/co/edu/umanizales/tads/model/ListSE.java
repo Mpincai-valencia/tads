@@ -178,6 +178,29 @@ public class ListSE {
         }
         return count;
     }
+
+    public int[]  getCountKidsByAgeAndGender(byte age)
+    {
+        int countgenderM=0;
+        int countgenderF=0;
+        if (this.head!=null)
+        {
+            Node temp=head;
+            while (temp!=null)
+            {
+                if(temp.getData().getAge()>=age)
+                {
+                    if(temp.getData().getGender()=='M')
+                    {countgenderM++;}
+                    else
+                    {countgenderF++;}
+                }
+                temp=temp.getNext();
+            }
+        }
+        int[] result = {countgenderM, countgenderF};
+        return result;
+    }
     public int getCountKidsByLocationSize(int size)
     {
         int count=0;
