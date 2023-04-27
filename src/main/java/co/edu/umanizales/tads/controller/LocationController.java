@@ -1,6 +1,8 @@
 package co.edu.umanizales.tads.controller;
 
-import co.edu.umanizales.tads.dto.*;
+import co.edu.umanizales.tads.controller.dto.KidByLocationDTO;
+import co.edu.umanizales.tads.controller.dto.KidDTO;
+import co.edu.umanizales.tads.controller.dto.ResponseDTO;
 import co.edu.umanizales.tads.model.Kid;
 import co.edu.umanizales.tads.model.Location;
 import co.edu.umanizales.tads.service.ListSEService;

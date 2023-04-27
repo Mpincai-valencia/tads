@@ -1,4 +1,4 @@
-package co.edu.umanizales.tads.dto;
+package co.edu.umanizales.tads.controller.dto;
 
 import lombok.Data;
 

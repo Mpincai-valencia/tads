@@ -1,14 +1,11 @@
 package co.edu.umanizales.tads.model;
 
-import co.edu.umanizales.tads.dto.KidByLocationAndGenderDTO;
+import co.edu.umanizales.tads.controller.dto.ReportKidsLocationGenderDTO;
+import co.edu.umanizales.tads.exception.ListSEException;
 import lombok.*;
-import java.util.List;
 
 @Data
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class ListSE {
     private Node head;
 
@@ -146,7 +143,7 @@ public class ListSE {
         }
     }
 
-    public void orderBoysToStart(){
+    public void orderBoysToStart()throws ListSEException {
         if(this.head !=null){
             ListSE listCp = new ListSE();
             Node temp = this.head;
@@ -181,28 +178,7 @@ public class ListSE {
         return count;
     }
 
-    public int[]  getCountKidsByAgeAndGender(byte age)
-    {
-        int countgenderM=0;
-        int countgenderF=0;
-        if (this.head!=null)
-        {
-            Node temp=head;
-            while (temp!=null)
-            {
-                if(temp.getData().getAge()>=age)
-                {
-                    if(temp.getData().getGender()=='M')
-                    {countgenderM++;}
-                    else
-                    {countgenderF++;}
-                }
-                temp=temp.getNext();
-            }
-        }
-        int[] result = {countgenderM, countgenderF};
-        return result;
-    }
+
     public int getCountKidsByLocationSize(int size)
     {
         int count=0;
@@ -241,7 +217,17 @@ public class ListSE {
         return null;
 
     }
-
+    public void getReportKidsByLocationGendersByAge(byte age, ReportKidsLocationGenderDTO report){
+        if(head !=null){
+            Node temp = this.head;
+            while(temp!=null){
+                if(temp.getData().getAge()>age){
+                    report.updateQuantity(temp.getData().getLocation().getName(), temp.getData().getGender());
+                }
+                temp = temp.getNext();
+            }
+        }
+    }
 
 
 }
