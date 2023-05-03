@@ -51,6 +51,31 @@ public class ListDE {
         }
     }
 
+    public void addInPosicionDE(Pet pet, int posicion)
+    {
+        NodeDE temp=headDE;
+        if(headDE!=null)
+        {
+            if(posicion==1)
+            {
+                addToStartDE(pet);
+            }
+            else
+            {
+                for(int i=0;i<posicion-1;i++)
+                {
+                    temp = temp.getNext();
+                }
+                NodeDE newNodeDE= new NodeDE(pet);
+                temp.setNext(newNodeDE);
+                newNodeDE.setPrevious(temp);
+            }
+        }
+
+    }
+
+
+
 
 
 }
