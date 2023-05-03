@@ -24,8 +24,13 @@ public class ListDE {
             {
                 temp.getNext();
             }
-            NodeDE newNodeDE= new NodeDE(pet,temp.getNext(),temp.getPrevious());
+            NodeDE newNodeDE= new NodeDE(pet);
             temp.setNext(newNodeDE);
+            newNodeDE.setPrevious(temp);
+        }
+        else
+        {
+            headDE=new NodeDE(pet);
         }
 
     }
@@ -34,15 +39,15 @@ public class ListDE {
     {
         if (headDE!=null)
         {
-            NodeDE temp=headDE;
-            NodeDE newNodeDE= new NodeDE(pet,temp.getNext(),temp.getPrevious());
+
+            NodeDE newNodeDE= new NodeDE(pet);
             newNodeDE.setNext(headDE);
+            headDE.setPrevious(newNodeDE);
             headDE=newNodeDE;
         }
         else
         {
-            NodeDE temp=headDE;
-            headDE= new NodeDE(pet,temp.getNext(),temp.getPrevious());
+            headDE= new NodeDE(pet);
         }
     }
 

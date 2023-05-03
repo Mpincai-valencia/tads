@@ -3,6 +3,7 @@ package co.edu.umanizales.tads.controller;
 import co.edu.umanizales.tads.controller.dto.KidByLocationDTO;
 import co.edu.umanizales.tads.controller.dto.KidDTO;
 import co.edu.umanizales.tads.controller.dto.ResponseDTO;
+import co.edu.umanizales.tads.exception.ListSEException;
 import co.edu.umanizales.tads.model.Kid;
 import co.edu.umanizales.tads.model.Location;
 import co.edu.umanizales.tads.service.ListSEService;
@@ -46,8 +47,12 @@ public class LocationController {
         {
             return new ResponseEntity<>(new ResponseDTO(404,"La ubicación no existe",null),HttpStatus.OK);
         }
-        listSEService.getKids().add(
-        new Kid(kidDTO.getIdentification(), kidDTO.getName(), kidDTO.getAge(),kidDTO.getGender(),location));
+        try {
+            listSEService.getKids().add(
+            new Kid(kidDTO.getIdentification(), kidDTO.getName(), kidDTO.getAge(),kidDTO.getGender(),location));
+            } catch (ListSEException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<>(new ResponseDTO(200,"Se ha adicionado al niño",null),HttpStatus.OK);
     }
     @GetMapping(path="/kidsbylocation")

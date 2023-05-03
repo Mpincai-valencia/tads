@@ -8,28 +8,35 @@ import lombok.*;
 
 public class ListSE {
     private Node head;
-
+    private int size;
     public Node getHead() {
         return head;
     }
 
-    public void add(Kid kid)
-    {
-        if(head!=null)
-        {
-            Node temp=head;
-            while(temp.getNext()!=null)
+    public void add(Kid kid) throws ListSEException {
+        if(head != null){
+            Node temp = head;
+            while(temp.getNext() !=null)
             {
-                temp= temp.getNext();
+                if(temp.getData().getIdentification().equals(kid.getIdentification())){
+                    throw new ListSEException("Ya existe un niño");
+                }
+                temp = temp.getNext();
+
             }
-            Node newNode= new Node(kid);
+            if(temp.getData().getIdentification().equals(kid.getIdentification())){
+                throw new ListSEException("Ya existe un niño");
+            }
+            /// Parado en el último
+            Node newNode = new Node(kid);
             temp.setNext(newNode);
         }
-        else
-        {
-            head= new Node(kid);
+        else {
+            head = new Node(kid);
         }
+        size ++;
     }
+
     public void addToStart(Kid kid)
     {
         if(head!=null)
@@ -94,6 +101,23 @@ public class ListSE {
             head=null;
         }
     }
+    public void deleteKidsByAge(byte age)throws ListSEException
+    {
+        if (head != null)
+        {
+            ListSE listCp = new ListSE();
+            Node temp = head;
+            while (temp != null)
+            {
+                if (temp.getData().getAge() != age)
+                {
+                    listCp.add(temp.getData());
+                }
+                temp=temp.getNext();
+            }
+
+        }
+    }
     public void invertList()
     {
         if(head!=null)
@@ -108,7 +132,7 @@ public class ListSE {
          head=listCp.getHead();
         }
     }
-    public void addToStartNameChar(String letra)
+    public void addToEndNameChar(String letra) throws ListSEException
     {
 
         if(head!=null)
@@ -229,6 +253,94 @@ public class ListSE {
         }
     }
 
+    public int quantityByRangeAge(int min,int max)
+    {
+        int count = 0;
+        if (head != null)
+        {
+            Node temp = head;
+            while (temp != null)
+            {
+                if(temp.getData().getAge()>=min && temp.getData().getAge()<=max)
+                {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
 
+    public void passPositions(String identification, int position)
+    {
+        if(head!=null)
+        {
+            Node temp=head;
+            int count=1;
+            while(temp!=null && !temp.getData().equals(identification))
+            {
+                temp=temp.getNext();
+                count++;
+            }
+            int positiontoadd=count-position;
+            Kid kidcopy=temp.getNext().getData();
+            deleteKid(temp.getNext().getData().getIdentification(),count);
+            addInPosicion(kidcopy,positiontoadd);
+
+        }
+    }
+    public void lostPositions(String identification, int position)
+    {
+        if(head!=null)
+        {
+            Node temp=head;
+            int count=1;
+            while(temp!=null && !temp.getData().equals(identification))
+            {
+                temp=temp.getNext();
+                count++;
+            }
+            int positiontoadd=count+position;
+            Kid kidcopy=temp.getNext().getData();
+            deleteKid(temp.getNext().getData().getIdentification(),count);
+            addInPosicion(kidcopy,positiontoadd);
+
+        }
+    }
+    public void IntercalateKidByGender() throws ListSEException
+    {
+        ListSE listM=new ListSE();
+        ListSE listF=new ListSE();
+        ListSE interespersedlist= new ListSE();
+        Node temp=head;
+        while(temp!=null)
+        {
+            if(temp.getData().getGender()=='M')
+            {
+                listM.add(temp.getData());
+            }
+            else
+            {
+                listF.add(temp.getData());
+            }
+            temp.getNext();
+        }
+        Node tempM=listM.getHead();
+        Node tempF=listF.getHead();
+        Node tempInterespersed= interespersedlist.head;
+        while( tempM!=null && tempF!=null)
+        {
+            if(tempInterespersed.getData().getGender()=='M')
+            {
+                interespersedlist.add(tempF.getData());
+            }
+            else
+            {
+                interespersedlist.add(tempM.getData());
+            }
+            tempInterespersed.getNext();
+        }
+        head=interespersedlist.getHead();
+
+    }
 }
 
