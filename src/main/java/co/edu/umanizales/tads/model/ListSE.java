@@ -306,7 +306,7 @@ public class ListSE {
 
         }
     }
-    public void IntercalateKidByGender() throws ListSEException
+    public void intercalateKidByGender() throws ListSEException
     {
         ListSE listM=new ListSE();
         ListSE listF=new ListSE();

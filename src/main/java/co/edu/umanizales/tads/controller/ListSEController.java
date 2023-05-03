@@ -146,5 +146,14 @@ public class ListSEController {
         listSEService.getKids().lostPositions(identification,position);
         return new ResponseEntity<>(new ResponseDTO(200,"El niño ha perdido las posiciones deseadas",null),HttpStatus.OK);
     }
-    @GetMapping
+    @GetMapping(path ="intercalatekids")
+    public ResponseEntity<ResponseDTO>intercalateKids()
+    {
+        try {
+            listSEService.getKids().intercalateKidByGender();
+        } catch (ListSEException e) {
+            throw new RuntimeException(e);
+        }
+        return new ResponseEntity<>(new ResponseDTO(200,"Se han intercalado los niños",null),HttpStatus.OK);
+    }
 }
