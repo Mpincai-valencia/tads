@@ -73,7 +73,7 @@ public class ListDE {
         }
 
     }
-    public void deleteKidDE(String identification, int posicion)
+    public void deleteKidDE(String identification, int posicion)//este también se puede crear con una lista copia
     {   NodeDE temp=headDE;
         if(headDE!=null)
         {
