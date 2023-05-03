@@ -1,5 +1,6 @@
 package co.edu.umanizales.tads.model;
 
+import co.edu.umanizales.tads.exception.ListSEException;
 import lombok.*;
 
 @Data
@@ -73,7 +74,7 @@ public class ListDE {
         }
 
     }
-    public void deleteKidDE(String identification, int posicion)//este también se puede crear con una lista copia
+    public void deletePetDE(String identification, int posicion)//este también se puede crear con una lista copia
     {   NodeDE temp=headDE;
         if(headDE!=null)
         {
@@ -103,7 +104,23 @@ public class ListDE {
             headDE=null;
         }
     }
+    public void deletePetsByAgeDE(byte age)throws ListSEException
+    {
+        if (headDE != null)
+        {
+            ListDE listCp = new ListDE();
+            NodeDE temp = headDE;
+            while (temp != null)
+            {
+                if (temp.getData().!= age)
+                {
+                    listCp.addDE(temp.getData());
+                }
+                temp=temp.getNext();
+            }
 
+        }
+    }
 
 
 
