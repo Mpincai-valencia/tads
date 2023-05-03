@@ -73,6 +73,37 @@ public class ListDE {
         }
 
     }
+    public void deleteKidDE(String identification, int posicion)
+    {   NodeDE temp=headDE;
+        if(headDE!=null)
+        {
+            if(headDE.getData().equals(identification))
+            {
+                headDE=temp.getNext();
+            }
+            else
+            {
+                int pos=1;
+                while(temp != null)
+                {
+                    temp = temp.getNext();
+                    pos++;
+                    if(pos == posicion-1 )
+                    {
+                        break;
+                    }
+
+                }
+                temp.setNext(temp.getNext().getNext());
+                temp.getNext().getNext().setPrevious(temp);
+            }
+        }
+        else
+        {
+            headDE=null;
+        }
+    }
+
 
 
 
