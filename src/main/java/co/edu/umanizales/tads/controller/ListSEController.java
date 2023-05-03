@@ -156,4 +156,14 @@ public class ListSEController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han intercalado los niños",null),HttpStatus.OK);
     }
+    @GetMapping(path="orderboystostart")
+    public ResponseEntity<ResponseDTO>orderBoysToStart()
+    {
+        try {
+            listSEService.getKids().orderBoysToStart();
+        } catch (ListSEException e) {
+            throw new RuntimeException(e);
+        }
+        return new ResponseEntity<>(new ResponseDTO(200,"Se han añadido los niños al inicio",null),HttpStatus.OK);
+    }
 }
