@@ -6,6 +6,7 @@ import co.edu.umanizales.tads.model.Location;
 import co.edu.umanizales.tads.service.ListSEService;
 import co.edu.umanizales.tads.service.LocationService;
 import co.edu.umanizales.tads.service.RangeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +62,7 @@ public class ListSEController {
         return new ResponseEntity<>(new ResponseDTO(200,"Se han intercambiado los extremos",null),HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity<ResponseDTO> addKid(@RequestBody KidDTO kidDTO){
+    public ResponseEntity<ResponseDTO> addKid(@RequestBody @Valid KidDTO kidDTO){
         Location location = locationService.getLocationByCode(kidDTO.getCodeLocation());
         if(location == null){
             return new ResponseEntity<>(new ResponseDTO(
@@ -110,6 +111,7 @@ public class ListSEController {
     @GetMapping(path="/deletekidbyage")
     public ResponseEntity<ResponseDTO> deleteKidsByAge(byte age)
     {
+
         try {
             listSEService.getKids().deleteKidsByAge(age);
         } catch (ListSEException e) {

@@ -15,6 +15,7 @@ public class Pet
     private byte age;
     private String identification;
     private String race;
-    private char sex;
+    private String sex;
+    private Location location;
 
 }

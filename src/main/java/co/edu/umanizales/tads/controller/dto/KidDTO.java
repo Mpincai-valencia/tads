@@ -2,7 +2,7 @@ package co.edu.umanizales.tads.controller.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 @Data
 public class KidDTO {
@@ -15,7 +15,7 @@ public class KidDTO {
     @Max(15)
     private byte age;
     @Pattern(regexp = "^[MF]$", message = "El género debe ser M o F")
-    private char gender;
+    private String gender;
     private String codeLocation;
 
 

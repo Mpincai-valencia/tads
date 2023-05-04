@@ -5,10 +5,7 @@ import co.edu.umanizales.tads.exception.ListSEException;
 import co.edu.umanizales.tads.model.Kid;
 import co.edu.umanizales.tads.model.Location;
 import co.edu.umanizales.tads.model.Pet;
-import co.edu.umanizales.tads.service.ListDEService;
-import co.edu.umanizales.tads.service.ListSEService;
-import co.edu.umanizales.tads.service.LocationService;
-import co.edu.umanizales.tads.service.RangeService;
+import co.edu.umanizales.tads.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +23,7 @@ public class ListDEController {
     private LocationService locationService;
 
     @Autowired
-    private RangeService rangeService;
+    private RangeServiceDE rangeServiceDE;
     @GetMapping
     public ResponseEntity<ResponseDTO> getPets()
     {
@@ -41,11 +38,13 @@ public class ListDEController {
     @GetMapping(path="/addtostartnamecharde")
     public ResponseEntity<ResponseDTO>addToStartNameCharDE(String letra)
     {
+
         try {
             listDEService.getPets().addToEndNameChar(letra);
         } catch (ListSEException e) {
             throw new RuntimeException(e);
         }
+
         return new ResponseEntity<>(new ResponseDTO(200,"Se han agregado al inicio los nombres que inician con la letra ingresada",null),HttpStatus.OK);
     }
     @GetMapping(path="/deletekidde")
@@ -71,20 +70,6 @@ public class ListDEController {
         return new ResponseEntity<>(new ResponseDTO(200,"Se han eliminado los niños de la edad dada",null),HttpStatus.OK);
 
     }
-    //@GetMapping(path="/quantitypetsbyagerange")
-    //public ResponseEntity<ResponseDTO>getQuantityPetsByRange()
-    //{
-      //  List<QuantityRangeKidsDTO> quantityRangeKidsDTOList= new ArrayList<>();
-        //for (RangeKidsDTO range: rangeService.getRanges())
-        //{
-          //  int count= listSEService.getKids().quantityByRangeAge(range.getMinimum(), range.getMaximum());
-            //if (count>0)
-            //{
-              //  quantityRangeKidsDTOList.add(new QuantityRangeKidsDTO(range,count));
-            //}
-        //}
-        //return new ResponseEntity<>(new ResponseDTO(200,quantityRangeKidsDTOList,null),HttpStatus.OK);
-    //}
     @GetMapping(path="passpositions")
     public ResponseEntity<ResponseDTO>passPositions(int position,String identification)
     {
@@ -117,5 +102,33 @@ public class ListDEController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han añadido los machos al inicio",null),HttpStatus.OK);
     }
+    @GetMapping(path="/quantitypetsbyagerange")
+    public ResponseEntity<ResponseDTO>getQuantityPetsByRange()
+    {
+        List<QuantityRangePetsDTO> quantityRangePetsDTOList= new ArrayList<>();
+        for (RangePetsDTO rangepets: rangeServiceDE.getRanges())
+        {
+            int count= listDEService.getPets().quantityByRangeAgeDE(rangepets.getMinimum(), rangepets.getMaximum());
+            if (count>0)
+            {
+                quantityRangePetsDTOList.add(new QuantityRangePetsDTO(rangepets,count));
+            }
+        }
+        return new ResponseEntity<>(new ResponseDTO(200,quantityRangePetsDTOList,null),HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/petsbylocations")
+    public ResponseEntity<ResponseDTO> getPetsByLocation(){
+        List<PetByLocationDTO> petsByLocationDTOList = new ArrayList<>();
+        for(Location loc: locationService.getLocations())
+        {
+            int count = listDEService.getPets().getCountPetsByLocationCode(loc.getCode());
+                petsByLocationDTOList.add(new PetByLocationDTO(loc,count));
+        }
+        return new ResponseEntity<>(new ResponseDTO(
+                200,petsByLocationDTOList,
+                null), HttpStatus.OK);
+        }
 
 }
+

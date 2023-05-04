@@ -179,7 +179,7 @@ public class ListDE {
             ListDE listCp = new ListDE();
             NodeDE temp = this.headDE;
             while(temp != null){
-                if(temp.getData().getSex()=='M')
+                if(temp.getData().getSex().equals('M'))
                 {
                     listCp.addToStartDE(temp.getData());
                 }
@@ -236,7 +236,7 @@ public class ListDE {
         NodeDE temp=headDE;
         while(temp!=null)
         {
-            if(temp.getData().getSex()=='M')
+            if(temp.getData().getSex().equals('M'))
             {
                 listM.addDE(temp.getData());
             }
@@ -251,7 +251,7 @@ public class ListDE {
         NodeDE tempInterspersed= interspersedlist.headDE;
         while( tempM!=null && tempF!=null)
         {
-            if(tempInterspersed.getData().getSex()=='M')
+            if(tempInterspersed.getData().getSex().equals('M'))
             {
                 interspersedlist.addDE(tempF.getData());
             }
@@ -277,6 +277,21 @@ public class ListDE {
                     count++;
                 }
             }
+        }
+        return count;
+    }
+    public int  getCountPetsByLocationCode(String code)
+    {
+        int count=0;
+        if (this.headDE!=null)
+        {
+            NodeDE temp=headDE;
+            while (temp!=null)
+            {
+                if(temp.getData().getLocation().getCode().equals(code))
+                {count++;}
+            }
+            temp=temp.getNext();
         }
         return count;
     }

@@ -15,7 +15,7 @@ public class LocationGenderQuantityDTO {
         this.city = city;
         this.total = 0;
         this.genders = new ArrayList<>();
-        this.genders.add(new GenderQuantityDTO('M',0));
-        this.genders.add(new GenderQuantityDTO('F',0));
+        this.genders.add(new GenderQuantityDTO("M",0));
+        this.genders.add(new GenderQuantityDTO("F",0));
     }
 }

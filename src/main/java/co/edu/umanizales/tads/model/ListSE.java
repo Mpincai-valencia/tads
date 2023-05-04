@@ -172,7 +172,7 @@ public class ListSE {
             ListSE listCp = new ListSE();
             Node temp = this.head;
             while(temp != null){
-                if(temp.getData().getGender()=='M')
+                if(temp.getData().getGender().equals('M'))
                 {
                     listCp.addToStart(temp.getData());
                 }
@@ -314,7 +314,7 @@ public class ListSE {
         Node temp=head;
         while(temp!=null)
         {
-            if(temp.getData().getGender()=='M')
+            if(temp.getData().getGender().equals('M'))
             {
                 listM.add(temp.getData());
             }
@@ -329,7 +329,7 @@ public class ListSE {
         Node tempInterspersed= interspersedlist.head;
         while( tempM!=null && tempF!=null)
         {
-            if(tempInterspersed.getData().getGender()=='M')
+            if(tempInterspersed.getData().getGender().equals('M'))
             {
                 interspersedlist.add(tempF.getData());
             }

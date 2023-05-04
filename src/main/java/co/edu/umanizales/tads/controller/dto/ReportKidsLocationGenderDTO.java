@@ -19,7 +19,7 @@ public class ReportKidsLocationGenderDTO {
         }
 
     }
-    public void updateQuantity(String city,char gender){
+    public void updateQuantity(String city,String gender){
         for(LocationGenderQuantityDTO loc:locationGenderQuantityDTOList){
             if(loc.getCity().equals(city)){
                 for(GenderQuantityDTO genderDTO: loc.getGenders()){

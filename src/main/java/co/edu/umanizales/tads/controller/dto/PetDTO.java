@@ -2,7 +2,7 @@ package co.edu.umanizales.tads.controller.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 @Data
 public class PetDTO {
@@ -16,6 +16,6 @@ public class PetDTO {
     private String identification;
     private String race;
     @Pattern(regexp = "^[MF]$", message = "El género debe ser M o F")
-    private char sex;
+    private String sex;
 
 }
