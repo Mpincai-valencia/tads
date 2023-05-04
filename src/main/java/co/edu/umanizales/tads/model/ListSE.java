@@ -115,7 +115,7 @@ public class ListSE {
                 }
                 temp=temp.getNext();
             }
-
+            listCp.head=head;
         }
     }
     public void invertList()
@@ -310,7 +310,7 @@ public class ListSE {
     {
         ListSE listM=new ListSE();
         ListSE listF=new ListSE();
-        ListSE interespersedlist= new ListSE();
+        ListSE interspersedlist= new ListSE();
         Node temp=head;
         while(temp!=null)
         {
@@ -326,20 +326,20 @@ public class ListSE {
         }
         Node tempM=listM.getHead();
         Node tempF=listF.getHead();
-        Node tempInterespersed= interespersedlist.head;
+        Node tempInterspersed= interspersedlist.head;
         while( tempM!=null && tempF!=null)
         {
-            if(tempInterespersed.getData().getGender()=='M')
+            if(tempInterspersed.getData().getGender()=='M')
             {
-                interespersedlist.add(tempF.getData());
+                interspersedlist.add(tempF.getData());
             }
             else
             {
-                interespersedlist.add(tempM.getData());
+                interspersedlist.add(tempM.getData());
             }
-            tempInterespersed.getNext();
+            tempInterspersed.getNext();
         }
-        head=interespersedlist.getHead();
+        head=interspersedlist.getHead();
 
     }
 }
