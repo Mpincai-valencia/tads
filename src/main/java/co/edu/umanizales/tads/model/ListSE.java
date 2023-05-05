@@ -276,7 +276,7 @@ public class ListSE {
         return count;
     }
 
-    public void passPositions(String identification, int position)
+    public void passPositions(String identification, int position)throws ListSEException
     {
         if(head!=null)
         {
@@ -294,7 +294,7 @@ public class ListSE {
 
         }
     }
-    public void lostPositions(String identification, int position)
+    public void lostPositions(String identification, int position)throws ListSEException
     {
         if(head!=null)
         {
