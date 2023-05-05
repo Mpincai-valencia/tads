@@ -145,13 +145,21 @@ public class ListSEController {
     @GetMapping(path="passpositions")
     public ResponseEntity<ResponseDTO>passPositions(int position,String identification)
     {
-        listSEService.getKids().passPositions(identification,position);
+        try {
+            listSEService.getKids().passPositions(identification,position);
+        } catch (ListSEException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<>(new ResponseDTO(200,"El niño ha adelantado las posiciones deseadas",null),HttpStatus.OK);
     }
     @GetMapping(path="lostpositions")
     public ResponseEntity<ResponseDTO>lostPositions(int position,String identification)
     {
-        listSEService.getKids().lostPositions(identification,position);
+        try {
+            listSEService.getKids().lostPositions(identification,position);
+        } catch (ListSEException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<>(new ResponseDTO(200,"El niño ha perdido las posiciones deseadas",null),HttpStatus.OK);
     }
     @GetMapping(path ="intercalatekids")
