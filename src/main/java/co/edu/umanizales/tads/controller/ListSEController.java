@@ -51,7 +51,13 @@ public class ListSEController {
     @GetMapping(path="/deletekid")
     public ResponseEntity<ResponseDTO>deleteKid(Kid kid, int posicion)
     {
-        listSEService.getKids().deleteKid(kid.getIdentification(),posicion);
+        try {
+            listSEService.getKids().deleteKid(kid.getIdentification(),posicion);
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
         return new ResponseEntity<>(new ResponseDTO(200,"Se ha eliminado al niño",null),HttpStatus.OK);
     }
 

@@ -72,7 +72,7 @@ public class ListSE {
 
     }
 
-    public void deleteKid(String identification, int posicion)
+    public void deleteKid(String identification, int posicion)throws ListSEException
     {   Node temp=head;
         if(head!=null)
         {
@@ -91,10 +91,16 @@ public class ListSE {
                     {
                         break;
                     }
+                    if(temp.getData().getIdentification()!=identification)
+                    {
+                        throw new ListSEException("No existe niño con ese id");
+                    }
 
                 }
                 temp.setNext(temp.getNext().getNext());
+
             }
+
         }
         else
         {
