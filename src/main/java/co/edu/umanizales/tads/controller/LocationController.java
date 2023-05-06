@@ -33,7 +33,7 @@ public class LocationController {
     {
         return new ResponseEntity<>(new ResponseDTO(200, locationService.getLocationByCodeSize(3),null),HttpStatus.OK);
     }
-    @GetMapping
+    @GetMapping(path="/departments")
     public ResponseEntity<ResponseDTO>getDepartments()
     {
         return new ResponseEntity<ResponseDTO>(new ResponseDTO(200, locationService.getLocationByCodeSize(5),null),HttpStatus.OK);
