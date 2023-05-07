@@ -295,6 +295,27 @@ public class ListDE {
         }
         return count;
     }
+    public float averageAgeDE()
+    {
+        if(headDE != null)
+        {
+            NodeDE temp = headDE;
+            int countkidsDE = 0;
+            int ageskidsDE = 0;
+            while (temp.getNext() != null)
+            {
+                countkidsDE++;
+                ageskidsDE = ageskidsDE + temp.getData().getAge();
+                temp = temp.getNext();
+            }
+            return (float) ageskidsDE/countkidsDE;
+        }
+        else
+        {
+
+            return 0;
+        }
+    }
 
 
 

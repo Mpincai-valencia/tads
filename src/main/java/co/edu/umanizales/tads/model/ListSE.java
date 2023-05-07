@@ -215,7 +215,7 @@ public class ListSE {
         if (head!=null)
         {
             Node temp=head;
-            while(temp!=null)
+            while(temp.getNext()!=null)
             {
                 if(temp.getData().getLocation().getCode().length()==size)
                 {count++;}
@@ -235,7 +235,7 @@ public class ListSE {
             }
             else {
                 Node temp = head;
-                while (temp != null) {
+                while (temp.getNext() != null) {
                     temp = temp.getNext();
                     if (temp.getData().equals(code)) {
                         return temp.getData();
@@ -265,7 +265,7 @@ public class ListSE {
         if (head != null)
         {
             Node temp = head;
-            while (temp != null)
+            while (temp!= null)
             {
                 if(temp.getData().getAge()>=min && temp.getData().getAge()<=max)
                 {
@@ -283,7 +283,7 @@ public class ListSE {
         {
             Node temp=head;
             int count=1;
-            while(temp!=null && !temp.getData().equals(identification))
+            while(temp.getNext()!=null && !temp.getData().equals(identification))
             {
                 temp=temp.getNext();
                 count++;
@@ -301,7 +301,7 @@ public class ListSE {
         {
             Node temp=head;
             int count=1;
-            while(temp!=null && !temp.getData().equals(identification))
+            while(temp.getNext()!=null && !temp.getData().equals(identification))
             {
                 temp=temp.getNext();
                 count++;
@@ -321,7 +321,7 @@ public class ListSE {
         if(head!=null)
         {
             Node temp = head;
-            while (temp != null) {
+            while (temp.getNext()!= null) {
                 if (temp.getData().getGender().equals('M')) {
                     listM.add(temp.getData());
                 } else {
@@ -343,6 +343,27 @@ public class ListSE {
             head = interspersedlist.getHead();
         }
 
+    }
+    public float averageAge()
+    {
+        if(head != null)
+        {
+            Node temp = head;
+            int countkids = 0;
+            int ageskids = 0;
+            while (temp.getNext() != null)
+            {
+                countkids++;
+                ageskids = ageskids + temp.getData().getAge();
+                temp = temp.getNext();
+            }
+            return (float) ageskids/countkids;
+        }
+        else
+        {
+            
+            return 0;
+        }
     }
 }
 

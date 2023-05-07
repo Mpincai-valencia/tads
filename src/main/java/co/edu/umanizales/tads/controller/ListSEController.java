@@ -182,4 +182,10 @@ public class ListSEController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han añadido los niños al inicio",null),HttpStatus.OK);
     }
+    @GetMapping(path="averagebyage")
+    public ResponseEntity<ResponseDTO>averageByAge()
+    {
+
+        return new ResponseEntity<>(new ResponseDTO(200,listSEService.getKids().averageAge(),null),HttpStatus.OK);
+    }
 }

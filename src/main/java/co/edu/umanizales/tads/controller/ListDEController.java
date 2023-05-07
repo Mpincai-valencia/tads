@@ -129,6 +129,11 @@ public class ListDEController {
                 200,petsByLocationDTOList,
                 null), HttpStatus.OK);
         }
+    @GetMapping(path="averagebyage")
+    public ResponseEntity<ResponseDTO>averageByAge()
+    {
 
+        return new ResponseEntity<>(new ResponseDTO(200,listDEService.getPets().averageAgeDE(),null),HttpStatus.OK);
+    }
 }
 
