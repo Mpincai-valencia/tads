@@ -271,6 +271,7 @@ public class ListSE {
                 {
                     count++;
                 }
+                temp=temp.getNext();
             }
         }
         return count;
@@ -317,35 +318,30 @@ public class ListSE {
         ListSE listM=new ListSE();
         ListSE listF=new ListSE();
         ListSE interspersedlist= new ListSE();
-        Node temp=head;
-        while(temp!=null)
+        if(head!=null)
         {
-            if(temp.getData().getGender().equals('M'))
-            {
-                listM.add(temp.getData());
+            Node temp = head;
+            while (temp != null) {
+                if (temp.getData().getGender().equals('M')) {
+                    listM.add(temp.getData());
+                } else {
+                    listF.add(temp.getData());
+                }
+                temp.getNext();
             }
-            else
-            {
-                listF.add(temp.getData());
+            Node tempM = listM.getHead();
+            Node tempF = listF.getHead();
+            Node tempInterspersed = interspersedlist.head;
+            while (tempM != null && tempF != null) {
+                if (tempInterspersed.getData().getGender().equals('M')) {
+                    interspersedlist.add(tempF.getData());
+                } else {
+                    interspersedlist.add(tempM.getData());
+                }
+                tempInterspersed.getNext();
             }
-            temp.getNext();
+            head = interspersedlist.getHead();
         }
-        Node tempM=listM.getHead();
-        Node tempF=listF.getHead();
-        Node tempInterspersed= interspersedlist.head;
-        while( tempM!=null && tempF!=null)
-        {
-            if(tempInterspersed.getData().getGender().equals('M'))
-            {
-                interspersedlist.add(tempF.getData());
-            }
-            else
-            {
-                interspersedlist.add(tempM.getData());
-            }
-            tempInterspersed.getNext();
-        }
-        head=interspersedlist.getHead();
 
     }
 }
