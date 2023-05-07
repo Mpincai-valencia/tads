@@ -288,6 +288,10 @@ public class ListSE {
                 temp=temp.getNext();
                 count++;
             }
+            if(count<=position)
+            {
+                throw new ListSEException("No se puede adelantar este numero de posiciones");
+            }
             int positiontoadd=count-position;
             Kid kidcopy=temp.getNext().getData();
             deleteKid(temp.getNext().getData().getIdentification(),count);
@@ -307,6 +311,10 @@ public class ListSE {
                 count++;
             }
             int positiontoadd=count+position;
+            if(positiontoadd>=size)
+            {
+                throw new ListSEException("No puede perder el numero de posiciones deseadas");
+            }
             Kid kidcopy=temp.getNext().getData();
             deleteKid(temp.getNext().getData().getIdentification(),count);
             addInPosicion(kidcopy,positiontoadd);
@@ -361,7 +369,7 @@ public class ListSE {
         }
         else
         {
-            
+
             return 0;
         }
     }
