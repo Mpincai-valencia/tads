@@ -35,12 +35,12 @@ public class ListDEController {
         listDEService.invertDE();
         return new ResponseEntity<>(new ResponseDTO(200,"La lista se ha invertido",null ),HttpStatus.OK);
     }
-    @GetMapping(path="/addtostartnamecharde")
-    public ResponseEntity<ResponseDTO>addToStartNameCharDE(String letra)
+    @GetMapping(path="/addtostartnamecharde/{letter}")
+    public ResponseEntity<ResponseDTO>addToStartNameCharDE(String letter)
     {
 
         try {
-            listDEService.getPets().addToEndNameChar(letra);
+            listDEService.getPets().addToEndNameChar(letter);
         } catch (ListSEException e) {
             throw new RuntimeException(e);
         }
@@ -59,24 +59,24 @@ public class ListDEController {
         listDEService.getPets().changeExtremes();
         return new ResponseEntity<>(new ResponseDTO(200,"Se han intercambiado los extremos",null),HttpStatus.OK);
     }
-    @GetMapping(path="/deletepetbyage")
+    @GetMapping(path="/deletepetbyagede/{age}")
     public ResponseEntity<ResponseDTO> deletePetsByAge(byte age)
     {
         try {
             listDEService.getPets().deletePetsByAgeDE(age);
         } catch (ListSEException e) {
-            throw new RuntimeException(e);
+
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han eliminado los niños de la edad dada",null),HttpStatus.OK);
 
     }
-    @GetMapping(path="passpositions")
+    @GetMapping(path="passpositions/{identification}/{position}")
     public ResponseEntity<ResponseDTO>passPositions(int position,String identification)
     {
         listDEService.getPets().passPositions(identification,position);
         return new ResponseEntity<>(new ResponseDTO(200,"La mascots ha adelantado las posiciones deseadas",null),HttpStatus.OK);
     }
-    @GetMapping(path="lostpositions")
+    @GetMapping(path="lostpositions/{identification}{position}")
     public ResponseEntity<ResponseDTO>lostPositions(int position,String identification)
     {
         listDEService.getPets().lostPositions(identification,position);
@@ -88,7 +88,9 @@ public class ListDEController {
         try {
             listDEService.getPets().intercalatePetBySex();
         } catch (ListSEException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han intercalado las mascotas",null),HttpStatus.OK);
     }
@@ -98,7 +100,9 @@ public class ListDEController {
         try {
             listDEService.getPets().orderMaleToStart();
         } catch (ListSEException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han añadido los machos al inicio",null),HttpStatus.OK);
     }

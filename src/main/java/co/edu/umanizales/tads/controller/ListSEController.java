@@ -37,22 +37,22 @@ public class ListSEController {
         listSEService.invert();
         return new ResponseEntity<>(new ResponseDTO(200,"La lista se ha invertido",null ),HttpStatus.OK);
     }
-    @GetMapping(path="/addtostartnamechar")
-    public ResponseEntity<ResponseDTO>addToStartNameChar(String letra)
+    @GetMapping(path="/addtostartnamechar/{letter}")
+    public ResponseEntity<ResponseDTO>addToStartNameChar(String letter)
     {
         try {
-            listSEService.getKids().addToEndNameChar(letra);
+            listSEService.getKids().addToEndNameChar(letter);
             } catch (ListSEException e) {
             throw new RuntimeException(e);
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han agregado al inicio los nombres que inician con la letra ingresada",null),HttpStatus.OK);
     }
 
-    @GetMapping(path="/deletekid")
-    public ResponseEntity<ResponseDTO>deleteKid(Kid kid, int posicion)
+    @GetMapping(path="/deletekid/{identificayion}/{position}")
+    public ResponseEntity<ResponseDTO>deleteKid(Kid kid, int position)
     {
         try {
-            listSEService.getKids().deleteKid(kid.getIdentification(),posicion);
+            listSEService.getKids().deleteKid(kid.getIdentification(),position);
         } catch (ListSEException e) {
             return new ResponseEntity<>(new ResponseDTO(
                     409,e.getMessage(),
@@ -114,7 +114,7 @@ public class ListSEController {
                 200,report,
                 null), HttpStatus.OK);
     }
-    @GetMapping(path="/deletekidbyage")
+    @GetMapping(path="/deletekidbyage/{age}")
     public ResponseEntity<ResponseDTO> deleteKidsByAge(byte age)
     {
 
@@ -142,23 +142,27 @@ public class ListSEController {
         return new ResponseEntity<>(new ResponseDTO(200,quantityRangeKidsDTOList,null),HttpStatus.OK);
     }
 
-    @GetMapping(path="passpositions")
+    @GetMapping(path="passpositions/{identification}/{postion}")
     public ResponseEntity<ResponseDTO>passPositions(int position,String identification)
     {
         try {
             listSEService.getKids().passPositions(identification,position);
         } catch (ListSEException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ResponseDTO(200,"El niño ha adelantado las posiciones deseadas",null),HttpStatus.OK);
     }
-    @GetMapping(path="lostpositions")
+    @GetMapping(path="lostpositions/{identification}/{postion}")
     public ResponseEntity<ResponseDTO>lostPositions(int position,String identification)
     {
         try {
             listSEService.getKids().lostPositions(identification,position);
         } catch (ListSEException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ResponseDTO(200,"El niño ha perdido las posiciones deseadas",null),HttpStatus.OK);
     }
@@ -168,7 +172,9 @@ public class ListSEController {
         try {
             listSEService.getKids().intercalateKidByGender();
         } catch (ListSEException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han intercalado los niños",null),HttpStatus.OK);
     }
@@ -178,7 +184,9 @@ public class ListSEController {
         try {
             listSEService.getKids().orderBoysToStart();
         } catch (ListSEException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han añadido los niños al inicio",null),HttpStatus.OK);
     }
