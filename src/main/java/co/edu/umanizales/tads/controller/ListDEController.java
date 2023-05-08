@@ -133,11 +133,17 @@ public class ListDEController {
                 200,petsByLocationDTOList,
                 null), HttpStatus.OK);
         }
-    @GetMapping(path="averagebyage")
+    @GetMapping(path="/averagebyage")
     public ResponseEntity<ResponseDTO>averageByAge()
     {
 
         return new ResponseEntity<>(new ResponseDTO(200,listDEService.getPets().averageAgeDE(),null),HttpStatus.OK);
+    }
+    @GetMapping(path="/deleteinposition/{identification}")
+    public ResponseEntity<ResponseDTO>deleteinposition(@PathVariable String identification)
+    {
+        listDEService.getPets().deleteInPosition(identification);
+        return new ResponseEntity<>(new ResponseDTO(200,"Se ha eliminado la mascota",null),HttpStatus.OK);
     }
 }
 
