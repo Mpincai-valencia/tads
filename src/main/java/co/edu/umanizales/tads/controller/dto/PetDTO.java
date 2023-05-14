@@ -1,5 +1,6 @@
 package co.edu.umanizales.tads.controller.dto;
 
+import co.edu.umanizales.tads.model.Location;
 import lombok.Data;
 
 import jakarta.validation.constraints.*;
@@ -17,5 +18,6 @@ public class PetDTO {
     private String race;
     @Pattern(regexp = "^[MF]$", message = "El género debe ser M o F")
     private String sex;
+    private String codelocation;
 
 }

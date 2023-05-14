@@ -6,6 +6,7 @@ import co.edu.umanizales.tads.model.Kid;
 import co.edu.umanizales.tads.model.Location;
 import co.edu.umanizales.tads.model.Pet;
 import co.edu.umanizales.tads.service.*;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,10 +30,82 @@ public class ListDEController {
     {
         return new ResponseEntity<>(new ResponseDTO(200,listDEService.getPetslist(),null), HttpStatus.OK);
     }
+    @PostMapping(path = "/addde")
+    public ResponseEntity<ResponseDTO> addPet(@RequestBody @Valid PetDTO petDTO){
+        Location location = locationService.getLocationByCode(petDTO.getCodelocation());
+        if(location == null){
+            return new ResponseEntity<>(new ResponseDTO(
+                    404,"La ubicación no existe",
+                    null), HttpStatus.OK);
+        }
+        try {
+            listDEService.getPets().addDE(
+                    new Pet(petDTO.getName(),petDTO.getAge(),petDTO.getIdentification(),
+                            petDTO.getRace(), petDTO.getSex(),location));
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ResponseDTO(
+                200,"Se ha adicionado la mascota",
+                null), HttpStatus.OK);
+
+    }
+    @PostMapping(path = "/addtostart")
+    public ResponseEntity<ResponseDTO> addToStart(@RequestBody @Valid PetDTO petDTO){
+        Location location = locationService.getLocationByCode(petDTO.getCodelocation());
+        if(location == null){
+            return new ResponseEntity<>(new ResponseDTO(
+                    404,"La ubicación no existe",
+                    null), HttpStatus.OK);
+        }
+        try {
+            listDEService.getPets().addToStartDE(
+                    new Pet( petDTO.getName(),petDTO.getAge(),petDTO.getIdentification(),
+                            petDTO.getRace(),petDTO.getSex(), location));
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ResponseDTO(
+                200,"Se ha adicionado la mascota",
+                null), HttpStatus.OK);
+
+    }
+    @PostMapping(path = "/addinposition/{position}")
+    public ResponseEntity<ResponseDTO> addInPosition(@RequestBody @Valid PetDTO petDTO,@PathVariable int position){
+        Location location = locationService.getLocationByCode(petDTO.getCodelocation());
+        if(location == null){
+            return new ResponseEntity<>(new ResponseDTO(
+                    404,"La ubicación no existe",
+                    null), HttpStatus.OK);
+        }
+        try {
+            listDEService.getPets().addInPosicionDE(
+                    new Pet( petDTO.getName(),petDTO.getAge(),petDTO.getIdentification(),
+                            petDTO.getRace(),petDTO.getSex(), location),position);
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ResponseDTO(
+                200,"Se ha adicionado la mascota",
+                null), HttpStatus.OK);
+
+    }
     @GetMapping(path="/invertlistde")
     public ResponseEntity<ResponseDTO> invertListDE()
     {
-        listDEService.invertDE();
+        try {
+            listDEService.getPets().invertList();
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
         return new ResponseEntity<>(new ResponseDTO(200,"La lista se ha invertido",null ),HttpStatus.OK);
     }
     @GetMapping(path="/addtostartnamecharde/{letter}")
@@ -42,15 +115,23 @@ public class ListDEController {
         try {
             listDEService.getPets().addToEndNameChar(letter);
         } catch (ListSEException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(new ResponseDTO(200,"Se han agregado al inicio los nombres que inician con la letra ingresada",null),HttpStatus.OK);
     }
-    @GetMapping(path="/deletekidde")
-    public ResponseEntity<ResponseDTO>deletePet(Pet pet, int posicion)
+    @GetMapping(path="/deletepetde/{identificayion}/{position}")
+    public ResponseEntity<ResponseDTO>deletePet(Pet pet, int position)
     {
-        listDEService.getPets().deletePetDE(pet.getIdentification(),posicion);
+        try {
+            listDEService.getPets().deletePetDE(pet.getIdentification(),position);
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
         return new ResponseEntity<>(new ResponseDTO(200,"Se ha eliminado la mascota",null),HttpStatus.OK);
     }
     @GetMapping(path = "/change_extremesde")
@@ -65,24 +146,38 @@ public class ListDEController {
         try {
             listDEService.getPets().deletePetsByAgeDE(age);
         } catch (ListSEException e) {
-
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
         }
-        return new ResponseEntity<>(new ResponseDTO(200,"Se han eliminado los niños de la edad dada",null),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO(200,"Se han eliminado las mascotas de la edad dada",null),HttpStatus.OK);
 
     }
-    @GetMapping(path="passpositions/{identification}/{position}")
+    @GetMapping(path="/passpositions/{identification}/{position}")
     public ResponseEntity<ResponseDTO>passPositions(int position,String identification)
     {
-        listDEService.getPets().passPositions(identification,position);
-        return new ResponseEntity<>(new ResponseDTO(200,"La mascots ha adelantado las posiciones deseadas",null),HttpStatus.OK);
+        try {
+            listDEService.getPets().passPositions(identification,position);
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ResponseDTO(200,"La mascota ha adelantado las posiciones deseadas",null),HttpStatus.OK);
     }
-    @GetMapping(path="lostpositions/{identification}{position}")
+    @GetMapping(path="/lostpositions/{identification}{position}")
     public ResponseEntity<ResponseDTO>lostPositions(int position,String identification)
     {
-        listDEService.getPets().lostPositions(identification,position);
+        try {
+            listDEService.getPets().lostPositions(identification,position);
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
         return new ResponseEntity<>(new ResponseDTO(200,"La mascota ha perdido las posiciones deseadas",null),HttpStatus.OK);
     }
-    @GetMapping(path ="intercalatepets")
+    @GetMapping(path ="/intercalatepets")
     public ResponseEntity<ResponseDTO>intercalatePets()
     {
         try {
@@ -94,7 +189,7 @@ public class ListDEController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han intercalado las mascotas",null),HttpStatus.OK);
     }
-    @GetMapping(path="ordermalesstostart")
+    @GetMapping(path="/ordermalesstostart")
     public ResponseEntity<ResponseDTO>orderMalesToStart()
     {
         try {
@@ -142,7 +237,13 @@ public class ListDEController {
     @GetMapping(path="/deleteinposition/{identification}")
     public ResponseEntity<ResponseDTO>deleteinposition(@PathVariable String identification)
     {
-        listDEService.getPets().deleteInPosition(identification);
+        try {
+            listDEService.getPets().deleteInPosition(identification);
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
         return new ResponseEntity<>(new ResponseDTO(200,"Se ha eliminado la mascota",null),HttpStatus.OK);
     }
 }

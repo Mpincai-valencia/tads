@@ -18,7 +18,8 @@ public class ListSE {
             Node temp = head;
             while(temp.getNext() !=null)
             {
-                if(temp.getData().getIdentification().equals(kid.getIdentification())){
+                if(temp.getData().getIdentification().equals(kid.getIdentification()))
+                {
                     throw new ListSEException("Ya existe un niño");
                 }
                 temp = temp.getNext();
@@ -37,10 +38,24 @@ public class ListSE {
         size ++;
     }
 
-    public void addToStart(Kid kid)
+    public void addToStart(Kid kid)throws ListSEException
     {
         if(head!=null)
         {
+            Node temp = head;
+            while(temp.getNext() !=null)
+            {
+                if(temp.getData().getIdentification().equals(kid.getIdentification()))
+                {
+                    throw new ListSEException("Ya existe un niño");
+                }
+                temp = temp.getNext();
+
+            }
+            if(temp.getData().getIdentification().equals(kid.getIdentification()))
+            {
+                throw new ListSEException("Ya existe un niño");
+            }
             Node newNode= new Node(kid);
             newNode.setNext(head);
             head=newNode;
@@ -50,7 +65,7 @@ public class ListSE {
             head= new Node(kid);
         }
     }
-    public void addInPosicion(Kid kid, int posicion)
+    public void addInPosicion(Kid kid, int posicion) throws ListSEException
     {
         Node temp=head;
         if(head!=null)
@@ -95,12 +110,9 @@ public class ListSE {
                     {
                         throw new ListSEException("No existe niño con ese id");
                     }
-
                 }
                 temp.setNext(temp.getNext().getNext());
-
             }
-
         }
         else
         {
@@ -124,7 +136,7 @@ public class ListSE {
             listCp.head=head;
         }
     }
-    public void invertList()
+    public void invertList()throws ListSEException
     {
         if(head!=null)
         {

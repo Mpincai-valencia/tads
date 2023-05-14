@@ -20,16 +20,24 @@ public class ListDE {
         return headDE;
     }
 
-    public void addDE(Pet pet)
+    public void addDE(Pet pet)throws ListSEException
     {
         if(headDE!=null)
         {
             NodeDE temp=headDE;
             while(temp.getNext()!=null)
             {
+                if(temp.getData().getIdentification().equals(pet.getIdentification()))
+                {
+                    throw new ListSEException("Ya existe una mascota con esa identificacion");
+                }
                 temp.getNext();
             }
-            NodeDE newNodeDE= new NodeDE(pet);
+            if(temp.getData().getIdentification().equals(pet.getIdentification()))
+            {
+                throw new ListSEException("Ya existe una mascota con esa identificacion");
+            }
+            NodeDE newNodeDE = new NodeDE(pet);
             temp.setNext(newNodeDE);
             newNodeDE.setPrevious(temp);
         }
@@ -40,11 +48,24 @@ public class ListDE {
 
     }
 
-    public void addToStartDE(Pet pet)
+    public void addToStartDE(Pet pet)throws ListSEException
     {
         if (headDE!=null)
         {
+            NodeDE temp = headDE;
+            while(temp.getNext() !=null)
+            {
+                if(temp.getData().getIdentification().equals(pet.getIdentification()))
+                {
+                    throw new ListSEException("Ya existe una mascota");
+                }
+                temp = temp.getNext();
 
+            }
+            if(temp.getData().getIdentification().equals(pet.getIdentification()))
+            {
+                throw new ListSEException("Ya existe una mascota");
+            }
             NodeDE newNodeDE= new NodeDE(pet);
             newNodeDE.setNext(headDE);
             headDE.setPrevious(newNodeDE);
@@ -56,7 +77,7 @@ public class ListDE {
         }
     }
 
-    public void addInPosicionDE(Pet pet, int posicion)
+    public void addInPosicionDE(Pet pet, int posicion)throws ListSEException
     {
         NodeDE temp=headDE;
         if(headDE!=null)
@@ -78,7 +99,7 @@ public class ListDE {
         }
 
     }
-    public void deletePetDE(String identification, int posicion)//este también se puede crear con una lista copia
+    public void deletePetDE(String identification, int posicion)throws ListSEException//este también se puede crear con una lista copia
     {   NodeDE temp=headDE;
         if(headDE!=null)
         {
@@ -96,6 +117,10 @@ public class ListDE {
                     if(pos == posicion-1 )
                     {
                         break;
+                    }
+                    if(temp.getData().getIdentification()!=identification)
+                    {
+                        throw new ListSEException("No existe una mascota con ese id");
                     }
 
                 }
@@ -125,7 +150,7 @@ public class ListDE {
             listCp.headDE= headDE;
         }
     }
-    public void invertList()
+    public void invertList() throws ListSEException
     {
         if(headDE!=null)
         {
@@ -192,7 +217,7 @@ public class ListDE {
             this.headDE = listCp.getHead();
         }
     }
-    public void passPositions(String identification, int position)
+    public void passPositions(String identification, int position)throws ListSEException
     {
         if(headDE!=null)
         {
@@ -210,7 +235,7 @@ public class ListDE {
 
         }
     }
-    public void lostPositions(String identification, int position)
+    public void lostPositions(String identification, int position)throws ListSEException
     {
         if(headDE!=null)
         {
@@ -331,7 +356,7 @@ public class ListDE {
     -No hay datos
      */
 
-    public void deleteInPosition(String identification)
+    public void deleteInPosition(String identification)throws ListSEException
     {
         if(headDE!=null)
         {
@@ -355,6 +380,10 @@ public class ListDE {
                             temp.getNext().setPrevious(temp.getPrevious());
                         }
                         break;
+                    }
+                    if(temp.getData().getIdentification()!=identification)
+                    {
+                        throw new ListSEException("No existe una mascota con ese id");
                     }
                     temp = temp.getNext();
                 }

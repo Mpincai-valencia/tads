@@ -30,11 +30,16 @@ public class ListSEController {
     {
         return new ResponseEntity<>(new ResponseDTO(200,listSEService.getKids().getHead(),null), HttpStatus.OK);
     }
-    //No entiendo por que se llama antes del dto al service
     @GetMapping(path="/invertlist")
     public ResponseEntity<ResponseDTO> invertList()
     {
-        listSEService.invert();
+        try {
+            listSEService.getKids().invertList();
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
         return new ResponseEntity<>(new ResponseDTO(200,"La lista se ha invertido",null ),HttpStatus.OK);
     }
     @GetMapping(path="/addtostartnamechar/{letter}")
@@ -43,7 +48,9 @@ public class ListSEController {
         try {
             listSEService.getKids().addToEndNameChar(letter);
             } catch (ListSEException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han agregado al inicio los nombres que inician con la letra ingresada",null),HttpStatus.OK);
     }
@@ -67,7 +74,7 @@ public class ListSEController {
         listSEService.getKids().changeExtremes();
         return new ResponseEntity<>(new ResponseDTO(200,"Se han intercambiado los extremos",null),HttpStatus.OK);
     }
-    @PostMapping
+    @PostMapping(path = "/add")
     public ResponseEntity<ResponseDTO> addKid(@RequestBody @Valid KidDTO kidDTO){
         Location location = locationService.getLocationByCode(kidDTO.getCodeLocation());
         if(location == null){
@@ -90,10 +97,56 @@ public class ListSEController {
                 null), HttpStatus.OK);
 
     }
+    @PostMapping(path = "/addtostart")
+    public ResponseEntity<ResponseDTO> addToStart(@RequestBody @Valid KidDTO kidDTO){
+        Location location = locationService.getLocationByCode(kidDTO.getCodeLocation());
+        if(location == null){
+            return new ResponseEntity<>(new ResponseDTO(
+                    404,"La ubicación no existe",
+                    null), HttpStatus.OK);
+        }
+        try {
+            listSEService.getKids().addToStart(
+                    new Kid(kidDTO.getIdentification(),
+                            kidDTO.getName(), kidDTO.getAge(),
+                            kidDTO.getGender(), location));
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ResponseDTO(
+                200,"Se ha adicionado el petacón",
+                null), HttpStatus.OK);
 
-    @GetMapping(path = "/kidsbylocations")
+    }
+    @PostMapping(path = "/addinposition/{position}")
+    public ResponseEntity<ResponseDTO> addInPosition(@RequestBody @Valid KidDTO kidDTO, @PathVariable int position){
+        Location location = locationService.getLocationByCode(kidDTO.getCodeLocation());
+        if(location == null){
+            return new ResponseEntity<>(new ResponseDTO(
+                    404,"La ubicación no existe",
+                    null), HttpStatus.OK);
+        }
+        try {
+            listSEService.getKids().addInPosicion(
+                    new Kid(kidDTO.getIdentification(),
+                            kidDTO.getName(), kidDTO.getAge(),
+                            kidDTO.getGender(), location),position);
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ResponseDTO(
+                200,"Se ha adicionado el petacón",
+                null), HttpStatus.OK);
+
+    }
+
+    @GetMapping(path = "/kidsbylocation")
     public ResponseEntity<ResponseDTO> getKidsByLocation(){
-        List<KidByLocationDTO> kidsByLocationDTOList = new ArrayList<>();
+        List<KidByLocationDTO>kidsByLocationDTOList = new ArrayList<>();
         for(Location loc: locationService.getLocations()){
             int count = listSEService.getKids().getCountKidsByLocationCode(loc.getCode());
             if(count>0){
@@ -121,7 +174,9 @@ public class ListSEController {
         try {
             listSEService.getKids().deleteKidsByAge(age);
         } catch (ListSEException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han eliminado los niños de la edad dada",null),HttpStatus.OK);
 
@@ -142,7 +197,7 @@ public class ListSEController {
         return new ResponseEntity<>(new ResponseDTO(200,quantityRangeKidsDTOList,null),HttpStatus.OK);
     }
 
-    @GetMapping(path="passpositions/{identification}/{postion}")
+    @GetMapping(path="/passpositions/{identification}/{postion}")
     public ResponseEntity<ResponseDTO>passPositions(int position,String identification)
     {
         try {
@@ -154,7 +209,7 @@ public class ListSEController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"El niño ha adelantado las posiciones deseadas",null),HttpStatus.OK);
     }
-    @GetMapping(path="lostpositions/{identification}/{postion}")
+    @GetMapping(path="/lostpositions/{identification}/{postion}")
     public ResponseEntity<ResponseDTO>lostPositions(int position,String identification)
     {
         try {
@@ -166,7 +221,7 @@ public class ListSEController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"El niño ha perdido las posiciones deseadas",null),HttpStatus.OK);
     }
-    @GetMapping(path ="intercalatekids")
+    @GetMapping(path ="/intercalatekids")
     public ResponseEntity<ResponseDTO>intercalateKids()
     {
         try {
@@ -178,7 +233,7 @@ public class ListSEController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han intercalado los niños",null),HttpStatus.OK);
     }
-    @GetMapping(path="orderboystostart")
+    @GetMapping(path="/orderboystostart")
     public ResponseEntity<ResponseDTO>orderBoysToStart()
     {
         try {
@@ -190,7 +245,7 @@ public class ListSEController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se han añadido los niños al inicio",null),HttpStatus.OK);
     }
-    @GetMapping(path="averagebyage")
+    @GetMapping(path="/averagebyage")
     public ResponseEntity<ResponseDTO>averageByAge()
     {
 

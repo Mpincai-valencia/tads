@@ -24,6 +24,6 @@ public class ListDEService {
         }
         return petList;
     }
-    public void invertDE() {pets.invertList();}
+
 
 }
