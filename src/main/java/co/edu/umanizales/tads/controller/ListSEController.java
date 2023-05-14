@@ -42,8 +42,8 @@ public class ListSEController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"La lista se ha invertido",null ),HttpStatus.OK);
     }
-    @GetMapping(path="/addtostartnamechar/{letter}")
-    public ResponseEntity<ResponseDTO>addToStartNameChar(String letter)
+    @GetMapping(path="/addtoendnamechar/{letter}")
+    public ResponseEntity<ResponseDTO>addToEndNameChar(String letter)
     {
         try {
             listSEService.getKids().addToEndNameChar(letter);
@@ -52,14 +52,14 @@ public class ListSEController {
                     409,e.getMessage(),
                     null), HttpStatus.OK);
         }
-        return new ResponseEntity<>(new ResponseDTO(200,"Se han agregado al inicio los nombres que inician con la letra ingresada",null),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO(200,"Se han agregado al final los nombres que inician con la letra ingresada",null),HttpStatus.OK);
     }
 
-    @GetMapping(path="/deletekid/{identificayion}/{position}")
-    public ResponseEntity<ResponseDTO>deleteKid(Kid kid, int position)
+    @GetMapping(path="/deletekid/{identification}")
+    public ResponseEntity<ResponseDTO>deleteKid(Kid kid)
     {
         try {
-            listSEService.getKids().deleteKid(kid.getIdentification(),position);
+            listSEService.getKids().deleteKid(kid.getIdentification());
         } catch (ListSEException e) {
             return new ResponseEntity<>(new ResponseDTO(
                     409,e.getMessage(),

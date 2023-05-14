@@ -87,37 +87,33 @@ public class ListSE {
 
     }
 
-    public void deleteKid(String identification, int posicion)throws ListSEException
-    {   Node temp=head;
+    public void deleteKid(String identification)throws ListSEException
+    {
         if(head!=null)
         {
-            if(head.getData().equals(identification))
+        ListSE listCp=new ListSE();
+        Node temp=head;
+        while(temp!= null)
+        {
+            if(temp.getData().getIdentification().equals(identification))
             {
-                head=temp.getNext();
+                temp.getNext();
             }
             else
             {
-                int pos=1;
-                while(temp != null)
-                {
-                    temp = temp.getNext();
-                    pos++;
-                    if(pos == posicion-1 )
-                    {
-                        break;
-                    }
-                    if(temp.getData().getIdentification()!=identification)
-                    {
-                        throw new ListSEException("No existe niño con ese id");
-                    }
-                }
-                temp.setNext(temp.getNext().getNext());
+                listCp.add(temp.getData());
+            }
+            temp = temp.getNext();
+            if(temp.getData().getIdentification()!=identification)
+            {
+                throw new ListSEException("No existe una mascota con ese id");
             }
         }
-        else
-        {
-            head=null;
+
+        head = listCp.getHead();
         }
+
+
     }
     public void deleteKidsByAge(byte age)throws ListSEException
     {
@@ -157,17 +153,19 @@ public class ListSE {
         {
             ListSE listCp=new ListSE();
             Node temp=head;
-            if(temp.getData().getName().startsWith(letra))
+            while(temp!=null)
             {
-                listCp.add(temp.getData());
-                temp=temp.getNext();
+                if(temp.getData().getName().startsWith(letra))
+                {
+                    listCp.add(temp.getData());
+                }
+                else
+                {
+                    listCp.addToStart(temp.getData());
+                }
+                temp = temp.getNext();
             }
-            else
-            {
-                listCp.addToStart(temp.getData());
-                temp=temp.getNext();
-            }
-            head=listCp.getHead();
+            head = listCp.getHead();
         }
     }
     public void changeExtremes()
@@ -306,7 +304,7 @@ public class ListSE {
             }
             int positiontoadd=count-position;
             Kid kidcopy=temp.getNext().getData();
-            deleteKid(temp.getNext().getData().getIdentification(),count);
+            deleteKid(temp.getNext().getData().getIdentification());
             addInPosicion(kidcopy,positiontoadd);
 
         }
@@ -328,7 +326,7 @@ public class ListSE {
                 throw new ListSEException("No puede perder el numero de posiciones deseadas");
             }
             Kid kidcopy=temp.getNext().getData();
-            deleteKid(temp.getNext().getData().getIdentification(),count);
+            deleteKid(temp.getNext().getData().getIdentification());
             addInPosicion(kidcopy,positiontoadd);
 
         }
