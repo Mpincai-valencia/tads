@@ -90,13 +90,23 @@ public class ListDE {
             {
                 for(int i=0;i<posicion-1;i++)
                 {
+                    if(temp.getData().getIdentification().equals(pet.getIdentification()))
+                    {
+                        throw new ListSEException("Ya existe una mascota");
+                    }
                     temp = temp.getNext();
                 }
+                if(temp.getData().getIdentification().equals(pet.getIdentification()))
+                {
+                    throw new ListSEException("Ya existe una mascota");
+                }
                 NodeDE newNodeDE= new NodeDE(pet);
+                newNodeDE.setNext(temp.getNext());
                 temp.setNext(newNodeDE);
                 newNodeDE.setPrevious(temp);
             }
         }
+        else headDE= new NodeDE(pet);
 
     }
     public void deletePetDE(String identification, int posicion)throws ListSEException//este también se puede crear con una lista copia

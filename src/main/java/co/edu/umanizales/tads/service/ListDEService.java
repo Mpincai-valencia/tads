@@ -14,6 +14,9 @@ import java.util.List;
 @Data
 public class ListDEService {
     private ListDE pets;
+    public ListDEService() {
+        pets = new ListDE();
+    }
     public List<Pet> getPetslist(){
         List<Pet>petList=new ArrayList<>();
         NodeDE temp= pets.getHead();
