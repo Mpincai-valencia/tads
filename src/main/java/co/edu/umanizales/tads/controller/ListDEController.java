@@ -108,8 +108,8 @@ public class ListDEController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"La lista se ha invertido",null ),HttpStatus.OK);
     }
-    @GetMapping(path="/addtostartnamecharde/{letter}")
-    public ResponseEntity<ResponseDTO>addToStartNameCharDE(String letter)
+    @GetMapping(path="/addtoendnamecharde/{letter}")
+    public ResponseEntity<ResponseDTO>addToEndNameCharDE(@PathVariable String letter)
     {
 
         try {
@@ -120,13 +120,13 @@ public class ListDEController {
                     null), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(new ResponseDTO(200,"Se han agregado al inicio los nombres que inician con la letra ingresada",null),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO(200,"Se han agregado al final los nombres que inician con la letra ingresada",null),HttpStatus.OK);
     }
-    @GetMapping(path="/deletepetde/{identificayion}/{position}")
-    public ResponseEntity<ResponseDTO>deletePet(Pet pet, int position)
+    @GetMapping(path="/deletepetde/{identification}")
+    public ResponseEntity<ResponseDTO>deletePet(@PathVariable String identification)
     {
         try {
-            listDEService.getPets().deletePetDE(pet.getIdentification(),position);
+            listDEService.getPets().deletePetDE(identification);
         } catch (ListSEException e) {
             return new ResponseEntity<>(new ResponseDTO(
                     409,e.getMessage(),
@@ -141,7 +141,7 @@ public class ListDEController {
         return new ResponseEntity<>(new ResponseDTO(200,"Se han intercambiado los extremos",null),HttpStatus.OK);
     }
     @GetMapping(path="/deletepetbyagede/{age}")
-    public ResponseEntity<ResponseDTO> deletePetsByAge(byte age)
+    public ResponseEntity<ResponseDTO> deletePetsByAge(@PathVariable byte age)
     {
         try {
             listDEService.getPets().deletePetsByAgeDE(age);
@@ -154,7 +154,7 @@ public class ListDEController {
 
     }
     @GetMapping(path="/passpositions/{identification}/{position}")
-    public ResponseEntity<ResponseDTO>passPositions(int position,String identification)
+    public ResponseEntity<ResponseDTO>passPositions(@PathVariable int position, @PathVariable String identification)
     {
         try {
             listDEService.getPets().passPositions(identification,position);
@@ -166,7 +166,7 @@ public class ListDEController {
         return new ResponseEntity<>(new ResponseDTO(200,"La mascota ha adelantado las posiciones deseadas",null),HttpStatus.OK);
     }
     @GetMapping(path="/lostpositions/{identification}{position}")
-    public ResponseEntity<ResponseDTO>lostPositions(int position,String identification)
+    public ResponseEntity<ResponseDTO>lostPositions(@PathVariable int position,@PathVariable String identification)
     {
         try {
             listDEService.getPets().lostPositions(identification,position);

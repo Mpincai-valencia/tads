@@ -91,26 +91,19 @@ public class ListSE {
     {
         if(head!=null)
         {
-        ListSE listCp=new ListSE();
-        Node temp=head;
-        while(temp!= null)
-        {
-            if(temp.getData().getIdentification().equals(identification))
+            ListSE listCp=new ListSE();
+            Node temp=head;
+            while(temp!= null)
             {
-                temp.getNext();
-            }
-            else
-            {
+                if(temp.getData().getIdentification().equals(identification))
+                {
+                    temp=temp.getNext();
+                }
                 listCp.add(temp.getData());
+                temp = temp.getNext();
             }
-            temp = temp.getNext();
-            if(temp.getData().getIdentification()!=identification)
-            {
-                throw new ListSEException("No existe una mascota con ese id");
-            }
-        }
 
-        head = listCp.getHead();
+            head = listCp.getHead();
         }
 
 

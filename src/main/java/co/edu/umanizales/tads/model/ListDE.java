@@ -109,39 +109,26 @@ public class ListDE {
         else headDE= new NodeDE(pet);
 
     }
-    public void deletePetDE(String identification, int posicion)throws ListSEException//este también se puede crear con una lista copia
-    {   NodeDE temp=headDE;
+    public void deletePetDE(String identification)throws ListSEException
+    {
         if(headDE!=null)
         {
-            if(headDE.getData().equals(identification))
+            ListDE listCp=new ListDE();
+            NodeDE temp=headDE;
+            while(temp!= null)
             {
-                headDE=temp.getNext();
-            }
-            else
-            {
-                int pos=1;
-                while(temp != null)
+                if(temp.getData().getIdentification().equals(identification))
                 {
-                    temp = temp.getNext();
-                    pos++;
-                    if(pos == posicion-1 )
-                    {
-                        break;
-                    }
-                    if(temp.getData().getIdentification()!=identification)
-                    {
-                        throw new ListSEException("No existe una mascota con ese id");
-                    }
-
+                    temp=temp.getNext();
                 }
-                temp.setNext(temp.getNext().getNext());
-                temp.getNext().getNext().setPrevious(temp);
+                listCp.addDE(temp.getData());
+                temp = temp.getNext();
             }
+
+            headDE = listCp.getHead();
         }
-        else
-        {
-            headDE=null;
-        }
+
+
     }
     public void deletePetsByAgeDE(byte age)throws ListSEException
     {
@@ -175,26 +162,27 @@ public class ListDE {
         }
     }
 
-    public void addToEndNameChar(String letra) throws ListSEException
-    {
-
-        if(headDE!=null)
+    public void addToEndNameChar(String letter) throws ListSEException {
+        if (headDE != null)
         {
-            ListDE listCp=new ListDE();
-            NodeDE temp=headDE;
-            if(temp.getData().getName().startsWith(letra))
+            ListDE listCp = new ListDE();
+            NodeDE temp = headDE;
+            while (temp != null)
             {
-                listCp.addDE(temp.getData());
-                temp=temp.getNext();
+                if (temp.getData().getName().startsWith(letter))
+                {
+                    listCp.addDE(temp.getData());
+                }
+                else
+                {
+                    listCp.addToStartDE(temp.getData());
+                }
+                temp = temp.getNext();
             }
-            else
-            {
-                listCp.addToStartDE(temp.getData());
-                temp=temp.getNext();
-            }
-            headDE=listCp.getHead();
+            headDE = listCp.getHead();
         }
     }
+
     public void changeExtremes()
     {
         if(headDE!=null && headDE.getNext()!=null)
@@ -240,7 +228,7 @@ public class ListDE {
             }
             int positiontoadd=count-position;
             Pet petcopy=temp.getNext().getData();
-            deletePetDE(temp.getNext().getData().getIdentification(),count);
+            deletePetDE(temp.getNext().getData().getIdentification());
             addInPosicionDE(petcopy,positiontoadd);
 
         }
@@ -258,7 +246,7 @@ public class ListDE {
             }
             int positiontoadd=count+position;
             Pet petcopy=temp.getNext().getData();
-            deletePetDE(temp.getNext().getData().getIdentification(),count);
+            deletePetDE(temp.getNext().getData().getIdentification());
             addInPosicionDE(petcopy,positiontoadd);
 
         }
