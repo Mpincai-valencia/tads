@@ -31,7 +31,7 @@ public class ListDE {
                 {
                     throw new ListSEException("Ya existe una mascota con esa identificacion");
                 }
-                temp.getNext();
+                temp= temp.getNext();
             }
             if(temp.getData().getIdentification().equals(pet.getIdentification()))
             {
@@ -130,7 +130,7 @@ public class ListDE {
 
 
     }
-    public void deletePetsByAgeDE(byte age)throws ListSEException
+    public void deletePetsByAgeDE(byte age) throws ListSEException
     {
         if (headDE != null)
         {
@@ -138,15 +138,16 @@ public class ListDE {
             NodeDE temp = headDE;
             while (temp != null)
             {
-                if (temp.getData().getAge()!= age)
+                if (temp.getData().getAge() != age)
                 {
                     listCp.addDE(temp.getData());
                 }
-                temp=temp.getNext();
+                temp = temp.getNext();
             }
-            listCp.headDE= headDE;
+            headDE = listCp.getHead();
         }
     }
+
     public void invertList() throws ListSEException
     {
         if(headDE!=null)
@@ -221,7 +222,7 @@ public class ListDE {
         {
             NodeDE temp=headDE;
             int count=1;
-            while(temp!=null && !temp.getData().equals(identification))
+            while(temp.getNext()!=null && !temp.getData().equals(identification))
             {
                 temp=temp.getNext();
                 count++;
@@ -271,18 +272,20 @@ public class ListDE {
         }
         NodeDE tempM=listM.getHead();
         NodeDE tempF=listF.getHead();
-        NodeDE tempInterspersed= interspersedlist.headDE;
+        NodeDE tempInterspersed= interspersedlist.getHead();
         while( tempM!=null && tempF!=null)
         {
             if(tempInterspersed.getData().getSex().equals('M'))
             {
                 interspersedlist.addDE(tempF.getData());
+                tempF = tempF.getNext();
             }
             else
             {
                 interspersedlist.addDE(tempM.getData());
+                tempF = tempF.getNext();
             }
-            tempInterspersed.getNext();
+            tempInterspersed=tempInterspersed.getNext();
         }
         headDE=interspersedlist.getHead();
 
