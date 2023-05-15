@@ -111,7 +111,6 @@ public class ListDEController {
     @GetMapping(path="/addtoendnamecharde/{letter}")
     public ResponseEntity<ResponseDTO>addToEndNameCharDE(@PathVariable String letter)
     {
-
         try {
             listDEService.getPets().addToEndNameChar(letter);
         } catch (ListSEException e) {
@@ -237,6 +236,7 @@ public class ListDEController {
     @GetMapping(path="/deleteinposition/{identification}")
     public ResponseEntity<ResponseDTO>deleteinposition(@PathVariable String identification)
     {
+
         try {
             listDEService.getPets().deleteInPosition(identification);
         } catch (ListSEException e) {
@@ -244,6 +244,7 @@ public class ListDEController {
                     409,e.getMessage(),
                     null), HttpStatus.OK);
         }
+
         return new ResponseEntity<>(new ResponseDTO(200,"Se ha eliminado la mascota",null),HttpStatus.OK);
     }
 }

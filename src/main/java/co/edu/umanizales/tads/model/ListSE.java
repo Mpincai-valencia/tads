@@ -65,7 +65,7 @@ public class ListSE {
             head= new Node(kid);
         }
     }
-    public void addInPosicion(Kid kid, int posicion) throws ListSEException
+    public void addInPosicion(Kid kid, int posicion)throws ListSEException
     {
         Node temp=head;
         if(head!=null)
@@ -78,12 +78,23 @@ public class ListSE {
             {
                 for(int i=0;i<posicion-1;i++)
                 {
+                    if(temp.getData().getIdentification().equals(kid.getIdentification()))
+                    {
+                        throw new ListSEException("Ya existe una nño");
+                    }
                     temp = temp.getNext();
                 }
+                if(temp.getData().getIdentification().equals(kid.getIdentification()))
+                {
+                    throw new ListSEException("Ya existe una mascota");
+                }
                 Node newNode= new Node(kid);
+                newNode.setNext(temp.getNext());
                 temp.setNext(newNode);
+
             }
         }
+        else head= new Node(kid);
 
     }
 
@@ -122,7 +133,7 @@ public class ListSE {
                 }
                 temp=temp.getNext();
             }
-            listCp.head=head;
+            head = listCp.getHead();
         }
     }
     public void invertList()throws ListSEException
@@ -139,16 +150,14 @@ public class ListSE {
          head=listCp.getHead();
         }
     }
-    public void addToEndNameChar(String letra) throws ListSEException
-    {
-
-        if(head!=null)
+    public void addToEndNameChar(String letter) throws ListSEException {
+        if (head != null)
         {
-            ListSE listCp=new ListSE();
-            Node temp=head;
-            while(temp!=null)
+            ListSE listCp = new ListSE();
+            Node temp = head;
+            while (temp != null)
             {
-                if(temp.getData().getName().startsWith(letra))
+                if (temp.getData().getName().startsWith(letter))
                 {
                     listCp.add(temp.getData());
                 }
@@ -329,30 +338,41 @@ public class ListSE {
         ListSE listM=new ListSE();
         ListSE listF=new ListSE();
         ListSE interspersedlist= new ListSE();
-        if(head!=null)
+        Node temp=head;
+        while(temp!=null)
         {
-            Node temp = head;
-            while (temp.getNext()!= null) {
-                if (temp.getData().getGender().equals('M')) {
-                    listM.add(temp.getData());
-                } else {
-                    listF.add(temp.getData());
-                }
-                temp.getNext();
+            if(temp.getData().getGender().equals("M"))
+            {
+                listM.add(temp.getData());
             }
-            Node tempM = listM.getHead();
-            Node tempF = listF.getHead();
-            Node tempInterspersed = interspersedlist.head;
-            while (tempM != null && tempF != null) {
-                if (tempInterspersed.getData().getGender().equals('M')) {
-                    interspersedlist.add(tempF.getData());
-                } else {
-                    interspersedlist.add(tempM.getData());
-                }
-                tempInterspersed.getNext();
+            else
+            {
+                listF.add(temp.getData());
             }
-            head = interspersedlist.getHead();
+            temp=temp.getNext();
         }
+        Node tempM=listM.getHead();
+        Node tempF=listF.getHead();
+
+        while (tempM != null && tempF != null)
+        {
+            interspersedlist.add(tempF.getData());
+            interspersedlist.add(tempM.getData());
+            tempF = tempF.getNext();
+            tempM = tempM.getNext();
+        }
+        while (tempF != null)
+        {
+            interspersedlist.add(tempF.getData());
+            tempF = tempF.getNext();
+        }
+
+        while (tempM != null)
+        {
+            interspersedlist.add(tempM.getData());
+            tempM = tempM.getNext();
+        }
+        head=interspersedlist.getHead();
 
     }
     public float averageAge()

@@ -56,10 +56,10 @@ public class ListSEController {
     }
 
     @GetMapping(path="/deletekid/{identification}")
-    public ResponseEntity<ResponseDTO>deleteKid(Kid kid)
+    public ResponseEntity<ResponseDTO>deleteKid(@PathVariable String identification)
     {
         try {
-            listSEService.getKids().deleteKid(kid.getIdentification());
+            listSEService.getKids().deleteKid(identification);
         } catch (ListSEException e) {
             return new ResponseEntity<>(new ResponseDTO(
                     409,e.getMessage(),
@@ -168,7 +168,7 @@ public class ListSEController {
                 null), HttpStatus.OK);
     }
     @GetMapping(path="/deletekidbyage/{age}")
-    public ResponseEntity<ResponseDTO> deleteKidsByAge(byte age)
+    public ResponseEntity<ResponseDTO> deleteKidsByAge(@PathVariable byte age)
     {
 
         try {

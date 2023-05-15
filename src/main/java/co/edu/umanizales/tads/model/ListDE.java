@@ -198,12 +198,13 @@ public class ListDE {
             temp.setData(copy);
         }
     }
-    public void orderMaleToStart()throws ListSEException {
+    public void orderMaleToStart()throws ListSEException
+    {
         if(this.headDE !=null){
             ListDE listCp = new ListDE();
             NodeDE temp = this.headDE;
             while(temp != null){
-                if(temp.getData().getSex().equals('M'))
+                if(temp.getData().getSex().equals("M"))
                 {
                     listCp.addToStartDE(temp.getData());
                 }
@@ -260,7 +261,7 @@ public class ListDE {
         NodeDE temp=headDE;
         while(temp!=null)
         {
-            if(temp.getData().getSex().equals('M'))
+            if(temp.getData().getSex().equals("M"))
             {
                 listM.addDE(temp.getData());
             }
@@ -268,24 +269,28 @@ public class ListDE {
             {
                 listF.addDE(temp.getData());
             }
-            temp.getNext();
+            temp=temp.getNext();
         }
         NodeDE tempM=listM.getHead();
         NodeDE tempF=listF.getHead();
-        NodeDE tempInterspersed= interspersedlist.getHead();
-        while( tempM!=null && tempF!=null)
+
+        while (tempM != null && tempF != null)
         {
-            if(tempInterspersed.getData().getSex().equals('M'))
-            {
-                interspersedlist.addDE(tempF.getData());
-                tempF = tempF.getNext();
-            }
-            else
-            {
-                interspersedlist.addDE(tempM.getData());
-                tempF = tempF.getNext();
-            }
-            tempInterspersed=tempInterspersed.getNext();
+            interspersedlist.addDE(tempF.getData());
+            interspersedlist.addDE(tempM.getData());
+            tempF = tempF.getNext();
+            tempM = tempM.getNext();
+        }
+        while (tempF != null)
+        {
+            interspersedlist.addDE(tempF.getData());
+            tempF = tempF.getNext();
+        }
+
+        while (tempM != null)
+        {
+            interspersedlist.addDE(tempM.getData());
+            tempM = tempM.getNext();
         }
         headDE=interspersedlist.getHead();
 
@@ -380,14 +385,20 @@ public class ListDE {
                         {
                             temp.getNext().setPrevious(temp.getPrevious());
                         }
+                        else
+                        {
+                            temp.getPrevious().setNext(null);
+                        }
                         break;
                     }
-                    if(temp.getData().getIdentification()!=identification)
+                    else
                     {
-                        throw new ListSEException("No existe una mascota con ese id");
+                        new ListSEException("No existe un niño con ese id");
                     }
                     temp = temp.getNext();
+
                 }
+
             }
 
         }
