@@ -43,7 +43,7 @@ public class ListSEController {
         return new ResponseEntity<>(new ResponseDTO(200,"La lista se ha invertido",null ),HttpStatus.OK);
     }
     @GetMapping(path="/addtoendnamechar/{letter}")
-    public ResponseEntity<ResponseDTO>addToEndNameChar(String letter)
+    public ResponseEntity<ResponseDTO>addToEndNameChar(@PathVariable String letter)
     {
         try {
             listSEService.getKids().addToEndNameChar(letter);
@@ -158,11 +158,9 @@ public class ListSEController {
                 null), HttpStatus.OK);
     }
     @GetMapping(path = "/kidsbylocationgenders/{age}")
-    public ResponseEntity<ResponseDTO> getReportKisLocationGenders(byte age) {
-        ReportKidsLocationGenderDTO report =
-                new ReportKidsLocationGenderDTO(locationService.getLocationByCodeSize(8));
-        listSEService.getKids()
-                .getReportKidsByLocationGendersByAge(age,report);
+    public ResponseEntity<ResponseDTO> getReportKisLocationGenders(@PathVariable byte age) {
+        ReportKidsLocationGenderDTO report = new ReportKidsLocationGenderDTO(locationService.getLocationByCodeSize(8));
+        listSEService.getKids().getReportKidsByLocationGendersByAge(age,report);
         return new ResponseEntity<>(new ResponseDTO(
                 200,report,
                 null), HttpStatus.OK);
@@ -197,8 +195,8 @@ public class ListSEController {
         return new ResponseEntity<>(new ResponseDTO(200,quantityRangeKidsDTOList,null),HttpStatus.OK);
     }
 
-    @GetMapping(path="/passpositions/{identification}/{postion}")
-    public ResponseEntity<ResponseDTO>passPositions(int position,String identification)
+    @GetMapping(path="/passpositions/{identification}/{position}")
+    public ResponseEntity<ResponseDTO>passPositions(@PathVariable int position, @PathVariable String identification)
     {
         try {
             listSEService.getKids().passPositions(identification,position);
@@ -209,8 +207,8 @@ public class ListSEController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"El niño ha adelantado las posiciones deseadas",null),HttpStatus.OK);
     }
-    @GetMapping(path="/lostpositions/{identification}/{postion}")
-    public ResponseEntity<ResponseDTO>lostPositions(int position,String identification)
+    @GetMapping(path="/lostpositions/{identification}/{position}")
+    public ResponseEntity<ResponseDTO>lostPositions(@PathVariable int position, @PathVariable String identification)
     {
         try {
             listSEService.getKids().lostPositions(identification,position);

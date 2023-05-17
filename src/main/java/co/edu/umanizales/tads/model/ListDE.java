@@ -88,7 +88,7 @@ public class ListDE {
             }
             else
             {
-                for(int i=0;i<posicion-1;i++)
+                for(int i=1;i<posicion-1;i++)
                 {
                     if(temp.getData().getIdentification().equals(pet.getIdentification()))
                     {
@@ -307,6 +307,7 @@ public class ListDE {
                 {
                     count++;
                 }
+                temp=temp.getNext();
             }
         }
         return count;
@@ -321,8 +322,9 @@ public class ListDE {
             {
                 if(temp.getData().getLocation().getCode().equals(code))
                 {count++;}
+                temp=temp.getNext();
             }
-            temp=temp.getNext();
+
         }
         return count;
     }
@@ -403,6 +405,9 @@ public class ListDE {
 
         }
     }
+
+
+
 
 
 

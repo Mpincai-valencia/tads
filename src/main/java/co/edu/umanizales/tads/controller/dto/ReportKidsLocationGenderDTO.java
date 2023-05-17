@@ -23,7 +23,7 @@ public class ReportKidsLocationGenderDTO {
         for(LocationGenderQuantityDTO loc:locationGenderQuantityDTOList){
             if(loc.getCity().equals(city)){
                 for(GenderQuantityDTO genderDTO: loc.getGenders()){
-                    if(genderDTO.getGender()==gender){
+                    if(genderDTO.getGender().equals(gender)){
                         genderDTO.setQuantity(genderDTO.getQuantity()+1);
                         loc.setTotal(loc.getTotal()+1);
                         return;

@@ -70,23 +70,16 @@ public class ListSE {
         Node temp=head;
         if(head!=null)
         {
+
             if(posicion==1)
             {
                 addToStart(kid);
             }
             else
             {
-                for(int i=0;i<posicion-1;i++)
+                for(int i=1;i<posicion-1;i++)
                 {
-                    if(temp.getData().getIdentification().equals(kid.getIdentification()))
-                    {
-                        throw new ListSEException("Ya existe una nño");
-                    }
                     temp = temp.getNext();
-                }
-                if(temp.getData().getIdentification().equals(kid.getIdentification()))
-                {
-                    throw new ListSEException("Ya existe una mascota");
                 }
                 Node newNode= new Node(kid);
                 newNode.setNext(temp.getNext());
@@ -106,17 +99,15 @@ public class ListSE {
             Node temp=head;
             while(temp!= null)
             {
-                if(temp.getData().getIdentification().equals(identification))
+                if(!temp.getData().getIdentification().equals(identification))
                 {
-                    temp=temp.getNext();
+                    listCp.add(temp.getData());
                 }
-                listCp.add(temp.getData());
-                temp = temp.getNext();
+                temp=temp.getNext();
             }
 
             head = listCp.getHead();
         }
-
 
     }
     public void deleteKidsByAge(byte age)throws ListSEException
@@ -214,8 +205,9 @@ public class ListSE {
             {
                 if(temp.getData().getLocation().getCode().equals(code))
                 {count++;}
+                temp=temp.getNext();
             }
-            temp=temp.getNext();
+
         }
         return count;
     }
@@ -227,12 +219,13 @@ public class ListSE {
         if (head!=null)
         {
             Node temp=head;
-            while(temp.getNext()!=null)
+            while(temp!=null)
             {
                 if(temp.getData().getLocation().getCode().length()==size)
                 {count++;}
+                temp=temp.getNext();
             }
-            temp=temp.getNext();
+
         }
         return count;
     }
@@ -262,8 +255,10 @@ public class ListSE {
     public void getReportKidsByLocationGendersByAge(byte age, ReportKidsLocationGenderDTO report){
         if(head !=null){
             Node temp = this.head;
-            while(temp!=null){
-                if(temp.getData().getAge()>age){
+            while(temp!=null)
+            {
+                if(temp.getData().getAge()>age)
+                {
                     report.updateQuantity(temp.getData().getLocation().getName(), temp.getData().getGender());
                 }
                 temp = temp.getNext();
@@ -295,18 +290,18 @@ public class ListSE {
         {
             Node temp=head;
             int count=1;
-            while(temp.getNext()!=null && !temp.getData().equals(identification))
+            while(temp.getNext()!=null && !temp.getNext().getData().getIdentification().equals(identification))
             {
                 temp=temp.getNext();
                 count++;
             }
-            if(count<=position)
+            if(count<position)
             {
                 throw new ListSEException("No se puede adelantar este numero de posiciones");
             }
-            int positiontoadd=count-position;
+            int positiontoadd=(count+1)-position;
             Kid kidcopy=temp.getNext().getData();
-            deleteKid(temp.getNext().getData().getIdentification());
+            deleteKid(kidcopy.getIdentification());
             addInPosicion(kidcopy,positiontoadd);
 
         }
@@ -315,22 +310,26 @@ public class ListSE {
     {
         if(head!=null)
         {
-            Node temp=head;
-            int count=1;
-            while(temp.getNext()!=null && !temp.getData().equals(identification))
-            {
-                temp=temp.getNext();
-                count++;
-            }
-            int positiontoadd=count+position;
-            if(positiontoadd>=size)
-            {
-                throw new ListSEException("No puede perder el numero de posiciones deseadas");
-            }
-            Kid kidcopy=temp.getNext().getData();
-            deleteKid(temp.getNext().getData().getIdentification());
-            addInPosicion(kidcopy,positiontoadd);
 
+            Node temp=head;
+            if(head.getData().getIdentification().equals(identification))
+            {
+                Kid headcopy=temp.getData();
+                deleteKid(headcopy.getIdentification());
+                addInPosicion(headcopy,(position+1));
+            }
+            else
+            {
+                int count = 1;
+                while (temp.getNext() != null && !temp.getNext().getData().getIdentification().equals(identification)) {
+                    temp = temp.getNext();
+                    count++;
+                }
+                int positiontoadd = (count + 1) + position;
+                Kid kidcopy = temp.getNext().getData();
+                deleteKid(kidcopy.getIdentification());
+                addInPosicion(kidcopy, positiontoadd);
+            }
         }
     }
     public void intercalateKidByGender() throws ListSEException
@@ -396,6 +395,7 @@ public class ListSE {
             return 0;
         }
     }
-
 }
+
+
 
