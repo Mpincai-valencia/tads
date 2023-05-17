@@ -109,7 +109,7 @@ public class ListDE {
         else headDE= new NodeDE(pet);
 
     }
-    public void deletePetDE(String identification)throws ListSEException
+    public void deletePet(String identification)throws ListSEException
     {
         if(headDE!=null)
         {
@@ -117,17 +117,15 @@ public class ListDE {
             NodeDE temp=headDE;
             while(temp!= null)
             {
-                if(temp.getData().getIdentification().equals(identification))
+                if(!temp.getData().getIdentification().equals(identification))
                 {
-                    temp=temp.getNext();
+                    listCp.addDE(temp.getData());
                 }
-                listCp.addDE(temp.getData());
-                temp = temp.getNext();
+                temp=temp.getNext();
             }
 
             headDE = listCp.getHead();
         }
-
 
     }
     public void deletePetsByAgeDE(byte age) throws ListSEException
@@ -222,16 +220,24 @@ public class ListDE {
         if(headDE!=null)
         {
             NodeDE temp=headDE;
+            if(headDE.getData().getIdentification().equals(identification))
+            {
+                throw new ListSEException("La cabeza no puede ganar más posiciones");
+            }
             int count=1;
-            while(temp.getNext()!=null && !temp.getData().equals(identification))
+            while(temp.getNext()!=null && !temp.getNext().getData().getIdentification().equals(identification))
             {
                 temp=temp.getNext();
                 count++;
             }
-            int positiontoadd=count-position;
-            Pet petcopy=temp.getNext().getData();
-            deletePetDE(temp.getNext().getData().getIdentification());
-            addInPosicionDE(petcopy,positiontoadd);
+            if(count<position)
+            {
+                throw new ListSEException("No se puede adelantar este numero de posiciones");
+            }
+            int positiontoadd=(count+1)-position;
+            Pet pedcopy=temp.getNext().getData();
+            deletePet(pedcopy.getIdentification());
+            addInPosicionDE(pedcopy,positiontoadd);
 
         }
     }
@@ -240,17 +246,27 @@ public class ListDE {
         if(headDE!=null)
         {
             NodeDE temp=headDE;
-            int count=1;
-            while(temp!=null && !temp.getData().equals(identification))
+            if(headDE.getData().getIdentification().equals(identification))
             {
-                temp=temp.getNext();
-                count++;
+                Pet headcopy=temp.getData();
+                deletePet(headcopy.getIdentification());
+                addInPosicionDE(headcopy,(position+1));
             }
-            int positiontoadd=count+position;
-            Pet petcopy=temp.getNext().getData();
-            deletePetDE(temp.getNext().getData().getIdentification());
-            addInPosicionDE(petcopy,positiontoadd);
+            else
+            {
 
+                int count = 1;
+                while (temp.getNext() != null && !temp.getNext().getData().getIdentification().equals(identification))
+                {
+                    temp = temp.getNext();
+                    count++;
+                }
+                int positiontoadd = (count + 1) + position;
+                Pet petcopy = temp.getNext().getData();
+                deletePet(petcopy.getIdentification());
+                addInPosicionDE(petcopy, positiontoadd);
+
+            }
         }
     }
     public void intercalatePetBySex() throws ListSEException

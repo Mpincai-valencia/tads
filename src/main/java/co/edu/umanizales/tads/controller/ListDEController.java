@@ -125,7 +125,7 @@ public class ListDEController {
     public ResponseEntity<ResponseDTO>deletePet(@PathVariable String identification)
     {
         try {
-            listDEService.getPets().deletePetDE(identification);
+            listDEService.getPets().deletePet(identification);
         } catch (ListSEException e) {
             return new ResponseEntity<>(new ResponseDTO(
                     409,e.getMessage(),
@@ -164,7 +164,7 @@ public class ListDEController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"La mascota ha adelantado las posiciones deseadas",null),HttpStatus.OK);
     }
-    @GetMapping(path="/lostpositions/{identification}{position}")
+    @GetMapping(path="/lostpositionsde/{identification}/{position}")
     public ResponseEntity<ResponseDTO>lostPositions(@PathVariable int position,@PathVariable String identification)
     {
         try {
