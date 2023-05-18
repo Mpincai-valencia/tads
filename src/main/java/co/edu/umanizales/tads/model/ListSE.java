@@ -108,6 +108,7 @@ public class ListSE {
 
             head = listCp.getHead();
         }
+        else { throw  new ListSEException("No hay niños");}
 
     }
     public void deleteKidsByAge(byte age)throws ListSEException
@@ -126,6 +127,7 @@ public class ListSE {
             }
             head = listCp.getHead();
         }
+        else { throw  new ListSEException("No hay niños");}
     }
     public void invertList()throws ListSEException
     {
@@ -140,6 +142,7 @@ public class ListSE {
          }
          head=listCp.getHead();
         }
+        else { throw  new ListSEException("No hay niños");}
     }
     public void addToEndNameChar(String letter) throws ListSEException {
         if (head != null)
@@ -160,6 +163,7 @@ public class ListSE {
             }
             head = listCp.getHead();
         }
+        else { throw  new ListSEException("No hay niños");}
     }
     public void changeExtremes()
     {
@@ -193,6 +197,7 @@ public class ListSE {
             }
             this.head = listCp.getHead();
         }
+        else { throw  new ListSEException("No hay niños");}
     }
 
     public int  getCountKidsByLocationCode(String code)
@@ -210,6 +215,7 @@ public class ListSE {
 
         }
         return count;
+
     }
 
 
@@ -250,9 +256,8 @@ public class ListSE {
             }
         }
         return null;
-
     }
-    public void getReportKidsByLocationGendersByAge(byte age, ReportKidsLocationGenderDTO report){
+    public void getReportKidsByLocationGendersByAge(byte age, ReportKidsLocationGenderDTO report) {
         if(head !=null){
             Node temp = this.head;
             while(temp!=null)
@@ -264,6 +269,7 @@ public class ListSE {
                 temp = temp.getNext();
             }
         }
+
     }
 
     public int quantityByRangeAge(int min,int max)
@@ -305,6 +311,7 @@ public class ListSE {
             addInPosicion(kidcopy,positiontoadd);
 
         }
+        else { throw  new ListSEException("No hay niños");}
     }
     public void lostPositions(String identification, int position)throws ListSEException
     {
@@ -331,48 +338,45 @@ public class ListSE {
                 addInPosicion(kidcopy, positiontoadd);
             }
         }
+        else { throw  new ListSEException("No hay niños");}
     }
     public void intercalateKidByGender() throws ListSEException
     {
-        ListSE listM=new ListSE();
-        ListSE listF=new ListSE();
-        ListSE interspersedlist= new ListSE();
-        Node temp=head;
-        while(temp!=null)
+        if(head!=null)
         {
-            if(temp.getData().getGender().equals("M"))
-            {
-                listM.add(temp.getData());
+            ListSE listM = new ListSE();
+            ListSE listF = new ListSE();
+            ListSE interspersedlist = new ListSE();
+            Node temp = head;
+            while (temp != null) {
+                if (temp.getData().getGender().equals("M")) {
+                    listM.add(temp.getData());
+                } else {
+                    listF.add(temp.getData());
+                }
+                temp = temp.getNext();
             }
-            else
-            {
-                listF.add(temp.getData());
+            Node tempM = listM.getHead();
+            Node tempF = listF.getHead();
+
+            while (tempM != null && tempF != null) {
+                interspersedlist.add(tempF.getData());
+                interspersedlist.add(tempM.getData());
+                tempF = tempF.getNext();
+                tempM = tempM.getNext();
             }
-            temp=temp.getNext();
-        }
-        Node tempM=listM.getHead();
-        Node tempF=listF.getHead();
+            while (tempF != null) {
+                interspersedlist.add(tempF.getData());
+                tempF = tempF.getNext();
+            }
 
-        while (tempM != null && tempF != null)
-        {
-            interspersedlist.add(tempF.getData());
-            interspersedlist.add(tempM.getData());
-            tempF = tempF.getNext();
-            tempM = tempM.getNext();
+            while (tempM != null) {
+                interspersedlist.add(tempM.getData());
+                tempM = tempM.getNext();
+            }
+            head = interspersedlist.getHead();
         }
-        while (tempF != null)
-        {
-            interspersedlist.add(tempF.getData());
-            tempF = tempF.getNext();
-        }
-
-        while (tempM != null)
-        {
-            interspersedlist.add(tempM.getData());
-            tempM = tempM.getNext();
-        }
-        head=interspersedlist.getHead();
-
+        else { throw  new ListSEException("No hay niños");}
     }
     public float averageAge()
     {
