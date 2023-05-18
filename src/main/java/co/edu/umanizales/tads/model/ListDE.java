@@ -126,6 +126,7 @@ public class ListDE {
 
             headDE = listCp.getHead();
         }
+        else { throw  new ListSEException("No hay mascotas");}
 
     }
     public void deletePetsByAgeDE(byte age) throws ListSEException
@@ -144,6 +145,7 @@ public class ListDE {
             }
             headDE = listCp.getHead();
         }
+        else { throw  new ListSEException("No hay mascotas");}
     }
 
     public void invertList() throws ListSEException
@@ -159,6 +161,7 @@ public class ListDE {
             }
             headDE=listCp.getHead();
         }
+        else { throw  new ListSEException("No hay mascotas");}
     }
 
     public void addToEndNameChar(String letter) throws ListSEException {
@@ -180,6 +183,7 @@ public class ListDE {
             }
             headDE = listCp.getHead();
         }
+        else { throw  new ListSEException("No hay mascotas");}
     }
 
     public void changeExtremes()
@@ -214,6 +218,7 @@ public class ListDE {
             }
             this.headDE = listCp.getHead();
         }
+        else { throw  new ListSEException("No hay mascotas");}
     }
     public void passPositions(String identification, int position)throws ListSEException
     {
@@ -240,6 +245,7 @@ public class ListDE {
             addInPosicionDE(pedcopy,positiontoadd);
 
         }
+        else { throw  new ListSEException("No hay mascotas");}
     }
     public void lostPositions(String identification, int position)throws ListSEException
     {
@@ -268,48 +274,45 @@ public class ListDE {
 
             }
         }
+        else { throw  new ListSEException("No hay mascotas");}
     }
     public void intercalatePetBySex() throws ListSEException
     {
-        ListDE listM=new ListDE();
-        ListDE listF=new ListDE();
-        ListDE interspersedlist= new ListDE();
-        NodeDE temp=headDE;
-        while(temp!=null)
+        if(headDE!=null)
         {
-            if(temp.getData().getSex().equals("M"))
-            {
-                listM.addDE(temp.getData());
+            ListDE listM = new ListDE();
+            ListDE listF = new ListDE();
+            ListDE interspersedlist = new ListDE();
+            NodeDE temp = headDE;
+            while (temp != null) {
+                if (temp.getData().getSex().equals("M")) {
+                    listM.addDE(temp.getData());
+                } else {
+                    listF.addDE(temp.getData());
+                }
+                temp = temp.getNext();
             }
-            else
-            {
-                listF.addDE(temp.getData());
+            NodeDE tempM = listM.getHead();
+            NodeDE tempF = listF.getHead();
+
+            while (tempM != null && tempF != null) {
+                interspersedlist.addDE(tempF.getData());
+                interspersedlist.addDE(tempM.getData());
+                tempF = tempF.getNext();
+                tempM = tempM.getNext();
             }
-            temp=temp.getNext();
-        }
-        NodeDE tempM=listM.getHead();
-        NodeDE tempF=listF.getHead();
+            while (tempF != null) {
+                interspersedlist.addDE(tempF.getData());
+                tempF = tempF.getNext();
+            }
 
-        while (tempM != null && tempF != null)
-        {
-            interspersedlist.addDE(tempF.getData());
-            interspersedlist.addDE(tempM.getData());
-            tempF = tempF.getNext();
-            tempM = tempM.getNext();
+            while (tempM != null) {
+                interspersedlist.addDE(tempM.getData());
+                tempM = tempM.getNext();
+            }
+            headDE = interspersedlist.getHead();
         }
-        while (tempF != null)
-        {
-            interspersedlist.addDE(tempF.getData());
-            tempF = tempF.getNext();
-        }
-
-        while (tempM != null)
-        {
-            interspersedlist.addDE(tempM.getData());
-            tempM = tempM.getNext();
-        }
-        headDE=interspersedlist.getHead();
-
+        else { throw  new ListSEException("No hay mascotas");}
     }
     public int quantityByRangeAgeDE(int min,int max)
     {
@@ -420,6 +423,7 @@ public class ListDE {
             }
 
         }
+        else { throw  new ListSEException("No hay mascotas");}
     }
 
 

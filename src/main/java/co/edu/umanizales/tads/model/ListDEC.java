@@ -124,5 +124,25 @@ public class ListDEC {
         else headDE= new NodeDE(pet);
 
     }
+    public void deletePetDEC(String identification)throws ListSEException
+    {
+        if(headDE!=null)
+        {
+            ListDEC listCp=new ListDEC();
+            NodeDE temp=headDE;
+            while(temp.getNext()!= headDE)
+            {
+                if(!temp.getData().getIdentification().equals(identification))
+                {
+                    listCp.addPetDEC(temp.getData());
+                }
+                temp=temp.getNext();
+            }
+
+            headDE = listCp.getHead();
+        }
+        else { throw  new ListSEException("No hay mascotas");}
+
+    }
 
 }
