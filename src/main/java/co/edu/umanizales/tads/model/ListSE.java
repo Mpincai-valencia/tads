@@ -181,7 +181,7 @@ public class ListSE {
             ListSE listCp = new ListSE();
             Node temp = this.head;
             while(temp != null){
-                if(temp.getData().getGender().equals('M'))
+                if(temp.getData().getGender().equals("M"))
                 {
                     listCp.addToStart(temp.getData());
                 }
