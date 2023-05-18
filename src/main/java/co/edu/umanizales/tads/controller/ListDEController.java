@@ -22,7 +22,6 @@ public class ListDEController {
     private ListDEService listDEService;
     @Autowired
     private LocationService locationService;
-
     @Autowired
     private RangeServiceDE rangeServiceDE;
     @GetMapping

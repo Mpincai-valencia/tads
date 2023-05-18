@@ -17,5 +17,4 @@ public class Pet
     private String race;
     private String sex;
     private Location location;
-
 }
