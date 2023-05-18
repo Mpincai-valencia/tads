@@ -381,7 +381,7 @@ public class ListSE {
             Node temp = head;
             int countkids = 0;
             int ageskids = 0;
-            while (temp.getNext() != null)
+            while (temp != null)
             {
                 countkids++;
                 ageskids = ageskids + temp.getData().getAge();
