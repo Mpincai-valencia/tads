@@ -24,6 +24,8 @@ public class PetDTO {
     private String race;
     @Pattern(regexp = "^[MF]$", message = "El género debe ser M o F")
     private String sex;
+    private boolean shower;
     private String codelocation;
+
 
 }

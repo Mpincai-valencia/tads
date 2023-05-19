@@ -40,7 +40,7 @@ public class ListDEController {
         try {
             listDEService.getPets().addDE(
                     new Pet(petDTO.getName(),petDTO.getAge(),petDTO.getIdentification(),
-                            petDTO.getRace(), petDTO.getSex(),location));
+                            petDTO.getRace(), petDTO.getSex(), petDTO.isShower(), location));
         } catch (ListSEException e) {
             return new ResponseEntity<>(new ResponseDTO(
                     409,e.getMessage(),
@@ -62,7 +62,7 @@ public class ListDEController {
         try {
             listDEService.getPets().addToStartDE(
                     new Pet( petDTO.getName(),petDTO.getAge(),petDTO.getIdentification(),
-                            petDTO.getRace(),petDTO.getSex(), location));
+                            petDTO.getRace(),petDTO.getSex(), petDTO.isShower(), location));
         } catch (ListSEException e) {
             return new ResponseEntity<>(new ResponseDTO(
                     409,e.getMessage(),
@@ -84,7 +84,7 @@ public class ListDEController {
         try {
             listDEService.getPets().addInPosicionDE(
                     new Pet( petDTO.getName(),petDTO.getAge(),petDTO.getIdentification(),
-                            petDTO.getRace(),petDTO.getSex(), location),position);
+                            petDTO.getRace(),petDTO.getSex(), petDTO.isShower(), location),position);
         } catch (ListSEException e) {
             return new ResponseEntity<>(new ResponseDTO(
                     409,e.getMessage(),
