@@ -16,13 +16,16 @@ public class ListDECService {
     public ListDECService() {
         petsdc = new ListDEC();
     }
-    public List<Pet> getPetsListDEC(){
-        List<Pet>petList=new ArrayList<>();
-        NodeDE temp= petsdc.getHead();
-        while(temp!=null)
-        {
-            petList.add(temp.getData());
-            temp=temp.getNext();
+    public List<Pet> getPetsListDEC() {
+        List<Pet> petList = new ArrayList<>();
+        NodeDE temp = petsdc.getHeadDEC();
+        if (temp != null) {
+            NodeDE temp2 = temp;
+            while (temp2.getNext() != temp) {
+                petList.add(temp2.getData());
+                temp2 = temp2.getNext();
+            }
+            petList.add(temp2.getData());
         }
         return petList;
     }

@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Data
 @Getter
@@ -12,12 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ListDEC {
-    private NodeDE headDE;
+    private NodeDE headDEC;
     private int size;
 
     private List<Pet> pets=new ArrayList<>();
-    public NodeDE getHead() {
-        return headDE;
+    public NodeDE getHeadDEC() {
+        return headDEC;
     }
 
     /*
@@ -35,10 +36,10 @@ public class ListDEC {
      */
     public void addPetDEC(Pet pet)throws ListSEException
     {
-        if(headDE!=null)
+        if(headDEC!=null)
         {
-            NodeDE temp=headDE;
-            while(!temp.getNext().equals(headDE))
+            NodeDE temp=headDEC;
+            while(temp.getNext()!=(headDEC))
             {
                 if(temp.getData().getIdentification().equals(pet.getIdentification()))
                 {
@@ -46,28 +47,27 @@ public class ListDEC {
                 }
                 temp= temp.getNext();
             }
-
             NodeDE newNodeDE = new NodeDE(pet);
-            newNodeDE.setNext(headDE);
-            headDE.getPrevious().setNext(newNodeDE);
-            newNodeDE.setPrevious(headDE.getPrevious());
-            headDE.setPrevious(newNodeDE);
+            newNodeDE.setNext(headDEC);
+            headDEC.getPrevious().setNext(newNodeDE);
+            newNodeDE.setPrevious(headDEC.getPrevious());
+            headDEC.setPrevious(newNodeDE);
 
         }
         else
         {
-            headDE=new NodeDE(pet);
-            headDE.setPrevious(headDE);
-            headDE.setNext(headDE);
+            headDEC=new NodeDE(pet);
+            headDEC.setPrevious(headDEC);
+            headDEC.setNext(headDEC);
         }
 
     }
     public void addPetToStartDEC(Pet pet)throws ListSEException
     {
-        if(headDE!=null)
+        if(headDEC!=null)
         {
-            NodeDE temp=headDE;
-            while(!temp.getNext().equals(headDE))
+            NodeDE temp=headDEC;
+            while(!temp.getNext().equals(headDEC))
             {
                 if(temp.getData().getIdentification().equals(pet.getIdentification()))
                 {
@@ -77,24 +77,25 @@ public class ListDEC {
             }
 
             NodeDE newNodeDE = new NodeDE(pet);
-            newNodeDE.setNext(headDE);
-            headDE.getPrevious().setNext(newNodeDE);
-            newNodeDE.setPrevious(headDE.getPrevious());
-            headDE.setPrevious(newNodeDE);
-            headDE=newNodeDE;
+            newNodeDE.setNext(headDEC);
+            headDEC.getPrevious().setNext(newNodeDE);
+            newNodeDE.setPrevious(headDEC.getPrevious());
+            headDEC.setPrevious(newNodeDE);
+            headDEC=newNodeDE;
 
         }
         else
         {
-            headDE=new NodeDE(pet);
-            headDE.setPrevious(headDE);
-            headDE.setNext(headDE);
+            headDEC=new NodeDE(pet);
+            headDEC.setPrevious(headDEC);
+            headDEC.setNext(headDEC);
         }
 
     }
-    public void addInPosicionDEC(Pet pet, int posicion)throws ListSEException
+    public void addInPosicionDE(Pet pet, int posicion)throws ListSEException
     {
-        if(headDE!=null)
+        NodeDE temp=headDEC;
+        if(headDEC!=null)
         {
             if(posicion==1)
             {
@@ -102,8 +103,7 @@ public class ListDEC {
             }
             else
             {
-                NodeDE temp=headDE;
-                while(temp!=null)
+                for(int i=1;i<posicion-1;i++)
                 {
                     if(temp.getData().getIdentification().equals(pet.getIdentification()))
                     {
@@ -121,16 +121,16 @@ public class ListDEC {
                 newNodeDE.setPrevious(temp);
             }
         }
-        else headDE= new NodeDE(pet);
+        else headDEC= new NodeDE(pet);
 
     }
     public void deletePetDEC(String identification)throws ListSEException
     {
-        if(headDE!=null)
+        if(headDEC!=null)
         {
             ListDEC listCp=new ListDEC();
-            NodeDE temp=headDE;
-            while(temp.getNext()!= headDE)
+            NodeDE temp=headDEC;
+            while(temp.getNext()!= headDEC)
             {
                 if(!temp.getData().getIdentification().equals(identification))
                 {
@@ -138,8 +138,46 @@ public class ListDEC {
                 }
                 temp=temp.getNext();
             }
+            if(!temp.getData().getIdentification().equals(identification))
+            {
+                listCp.addPetDEC(temp.getData());
+            }
 
-            headDE = listCp.getHead();
+            headDEC = listCp.getHeadDEC();
+        }
+        else { throw  new ListSEException("No hay mascotas");}
+
+    }
+    public void showerPetsByLeft()throws ListSEException
+    {
+        if(headDEC!=null)
+        {
+            NodeDE temp=headDEC;
+            Random random = new Random();
+            int count=1;
+            while(count!= random.nextInt())
+            {
+                temp=temp.getNext();
+                count++;
+            }
+            temp.getData().setShower(true);
+        }
+        else { throw  new ListSEException("No hay mascotas");}
+
+    }
+    public void showerPetsByRight()throws ListSEException
+    {
+        if(headDEC!=null)
+        {
+            NodeDE temp=headDEC;
+            Random random = new Random();
+            int count=1;
+            while(count!= random.nextInt())
+            {
+                temp=temp.getPrevious();
+                count++;
+            }
+            temp.getData().setShower(true);
         }
         else { throw  new ListSEException("No hay mascotas");}
 

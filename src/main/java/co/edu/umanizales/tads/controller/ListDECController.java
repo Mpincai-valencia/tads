@@ -80,7 +80,7 @@ public class ListDECController {
                     null), HttpStatus.OK);
         }
         try {
-            listDECService.getPetsdc().addInPosicionDEC(
+            listDECService.getPetsdc().addInPosicionDE(
                     new Pet( petDTO.getName(),petDTO.getAge(),petDTO.getIdentification(),
                             petDTO.getRace(),petDTO.getSex(), petDTO.isShower(), location),position);
         } catch (ListSEException e) {
@@ -105,5 +105,34 @@ public class ListDECController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se ha eliminado la mascota",null),HttpStatus.OK);
     }
+    @GetMapping(path="/showerpets")
+    public ResponseEntity<ResponseDTO>showerPetsByLeft()
+    {
+
+        try{
+            listDECService.getPetsdc().showerPetsByLeft();
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(new ResponseDTO(200,"Se ha bañado la mascota",null),HttpStatus.OK);
+    }
+    @GetMapping(path="/showerpets")
+    public ResponseEntity<ResponseDTO>showerPetsByRight()
+    {
+
+        try{
+            listDECService.getPetsdc().showerPetsByRight();
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(new ResponseDTO(200,"Se ha bañado la mascota",null),HttpStatus.OK);
+    }
+
 
 }
