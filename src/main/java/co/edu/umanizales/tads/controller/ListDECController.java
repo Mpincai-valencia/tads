@@ -105,7 +105,7 @@ public class ListDECController {
         }
         return new ResponseEntity<>(new ResponseDTO(200,"Se ha eliminado la mascota",null),HttpStatus.OK);
     }
-    @GetMapping(path="/showerpets")
+    @GetMapping(path="/showerpetsbyleft")
     public ResponseEntity<ResponseDTO>showerPetsByLeft()
     {
 
@@ -119,12 +119,26 @@ public class ListDECController {
 
         return new ResponseEntity<>(new ResponseDTO(200,"Se ha bañado la mascota",null),HttpStatus.OK);
     }
-    @GetMapping(path="/showerpets")
+    @GetMapping(path="/showerpetsbyright")
     public ResponseEntity<ResponseDTO>showerPetsByRight()
     {
 
         try{
             listDECService.getPetsdc().showerPetsByRight();
+        } catch (ListSEException e) {
+            return new ResponseEntity<>(new ResponseDTO(
+                    409,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(new ResponseDTO(200,"Se ha bañado la mascota",null),HttpStatus.OK);
+    }
+    @GetMapping(path="/showerpetsbymodule/{module}")
+    public ResponseEntity<ResponseDTO>showerPetsByModule(@PathVariable int module)
+    {
+
+        try{
+            listDECService.getPetsdc().showerPetsByModule(module);
         } catch (ListSEException e) {
             return new ResponseEntity<>(new ResponseDTO(
                     409,e.getMessage(),

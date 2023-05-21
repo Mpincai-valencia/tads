@@ -47,6 +47,10 @@ public class ListDEC {
                 }
                 temp= temp.getNext();
             }
+            if(temp.getData().getIdentification().equals(pet.getIdentification()))
+            {
+                throw new ListSEException("Ya existe una mascota con esa identificacion");
+            }
             NodeDE newNodeDE = new NodeDE(pet);
             newNodeDE.setNext(headDEC);
             headDEC.getPrevious().setNext(newNodeDE);
@@ -67,7 +71,7 @@ public class ListDEC {
         if(headDEC!=null)
         {
             NodeDE temp=headDEC;
-            while(!temp.getNext().equals(headDEC))
+            while(temp.getNext()!=(headDEC))
             {
                 if(temp.getData().getIdentification().equals(pet.getIdentification()))
                 {
@@ -182,6 +186,32 @@ public class ListDEC {
         else { throw  new ListSEException("No hay mascotas");}
 
     }
+    /*
+    Hay datos?
+    Si
+    -Necesito el número en donde se va a ubicar la mascota
+    -Inicio un contador para saber cuantas mascotas hay
+    -Llamo a un temporal y le digo que mientras el contador sea diferente del numero ingresado
+     se pase e incremente el contador
+    -Cuando sea el contador igual que el numero ingresado bañe a la mascota
+   No
+    -Nueva excepción "No hay datos"
+     */
+    public void showerPetsByModule(int module)throws ListSEException
+    {
+        if(headDEC!=null)
+        {
+            NodeDE temp=headDEC;
+            int count=1;
+            while(count!=module)
+            {
+                temp=temp.getNext();
+                count++;
+            }
+            temp.getData().setShower(true);
+        }
+        else { throw  new ListSEException("No hay mascotas");}
 
+    }
 
 }
